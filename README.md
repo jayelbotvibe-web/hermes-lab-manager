@@ -171,18 +171,6 @@ One command, both canaries. Forensics: 18 checks across 3 runtimes. Pentest: 14 
 
 ---
 
-## Pitfall Registry
-
-See [PITFALLS.md](PITFALLS.md) for the full registry — 13 proven pitfalls with BUG/FIX/DESIGN tags covering SSH sandboxing, WireGuard detection, Docker entrypoints, MemProcFS mounts, SIFT VM networking, and script coding patterns.
-
----
-
-## Replicating This Setup
-
-See [SETUP.md](SETUP.md) for a 10-step guide from bare metal to working dispatch — prerequisites, LUKS vault creation, Docker builds, profile configuration, SIFT VM setup, health check installation, and verification.
-
----
-
 ## Related Repos
 
 | Repo | Purpose |
@@ -191,6 +179,8 @@ See [SETUP.md](SETUP.md) for a 10-step guide from bare metal to working dispatch
 | [hermes-pentest-lab](https://github.com/jayelbotvibe-web/hermes-pentest-lab) | Pentest worker — Docker containers, VPN, reports |
 | [hermes-lab-dashboard](https://github.com/jayelbotvibe-web/hermes-lab-dashboard) | Boot flow, tray launcher, architecture diagram |
 | [Hermes Agent](https://github.com/NousResearch/hermes-agent) | The AI agent framework this all runs on |
+| [SETUP.md](SETUP.md) | 10-step replication guide — bare metal to working dispatch |
+| [PITFALLS.md](PITFALLS.md) | 13 proven pitfalls — BUG/FIX/DESIGN registry |
 
 ---
 
