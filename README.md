@@ -7,6 +7,7 @@
 Running two separate terminal windows — one for forensics, one for pentesting — gives you tools but not context. Each Hermes profile carries its own SOUL (persona), skills, memory, and model config. The forensics profile thinks like a DFIR analyst. The pentest profile thinks like a red teamer. They don't share conversational state, don't load each other's tools, and can't access each other's encrypted vaults. The manager bridges them through one conversation surface.
 
 [![Pages](https://img.shields.io/badge/docs-github%20pages-22d3ee)](https://jayelbotvibe-web.github.io/hermes-lab-manager/)
+[![View HTML](https://img.shields.io/badge/view-HTML%20reference-22d3ee)](https://htmlpreview.github.io/?https://github.com/jayelbotvibe-web/hermes-lab-manager/blob/main/index.html)
 [![Hermes Agent](https://img.shields.io/badge/Hermes%20Agent-latest-34d399)](https://github.com/NousResearch/hermes-agent)
 [![Profiles](https://img.shields.io/badge/profiles-3-blue)](#profile-system)
 [![Canary](https://img.shields.io/badge/canary-18/18-brightgreen)](#health-check)
@@ -26,6 +27,8 @@ You: "OSINT on example.com"
 ```
 
 No switching profiles. No typing commands into the right window. One conversation surface.
+
+> **📖 [View the full interactive reference →](https://jayelbotvibe-web.github.io/hermes-lab-manager/)** — dark-theme single-page site with architecture diagrams, tool inventory, vault system, dispatch patterns, pitfall registry, and 10-step replication guide. Also [viewable via HTMLPreview](https://htmlpreview.github.io/?https://github.com/jayelbotvibe-web/hermes-lab-manager/blob/main/index.html).
 
 ---
 
