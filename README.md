@@ -47,29 +47,7 @@ hermes -z "<self-contained prompt>" --profile pentest     # Pentesting
 
 ## Architecture
 
-```
-USER (single conversation surface)
-  │
-  ▼
-┌──────────────────────────────┐
-│  MANAGER (default profile)    │
-│  Routes tasks. Never tools.   │
-└──────┬───────────┬────────────┘
-       │ dispatch  │ dispatch
-       ▼           ▼
-┌──────────┐ ┌──────────────┐
-│ FORENSICS│ │ PENTEST      │
-│ Profile  │ │ Profile      │
-│          │ │              │
-│ Docker:  │ │ Docker:      │
-│  vol3    │ │  kali-web    │
-│  plaso   │ │  kali-net    │
-│  MFT     │ │  osint       │
-│ MemProcFS│ │  neo4j       │
-│ SIFT VM  │ │ WireGuard    │
-│ 30GB LUKS│ │ 10GB LUKS    │
-└──────────┘ └──────────────┘
-```
+![Hermes Lab Manager Architecture](architecture.svg)
 
 **Pattern:** Supervisor (Orchestrator-Worker) — one of four proven multi-agent patterns. Each `hermes -z` boots the profile fresh. No conversational state carries between dispatches.
 

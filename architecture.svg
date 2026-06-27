@@ -1,0 +1,230 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" style="background:#020617;font-family:monospace;font-size:10px">
+  <defs>
+    <linearGradient id="gMgr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f172a"/><stop offset="1" stop-color="#020617"/></linearGradient>
+    <linearGradient id="gForen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a1628"/><stop offset="1" stop-color="#020617"/></linearGradient>
+    <linearGradient id="gPent" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a1a0f"/><stop offset="1" stop-color="#020617"/></linearGradient>
+    <linearGradient id="gUser" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0f172a"/><stop offset="1" stop-color="#1e293b"/></linearGradient>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="arrowLeft" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto"><path d="M8,0 L0,3 L8,6 Z" fill="#475569"/></marker>
+    <filter id="glow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+
+  <!-- Background grid -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.3"/></pattern>
+  <rect width="1000" height="680" fill="url(#grid)" opacity="0.5"/>
+
+  <!-- Title -->
+  <text x="500" y="30" text-anchor="middle" fill="#22d3ee" font-size="14" font-weight="bold" letter-spacing="3">HERMES LAB MANAGER — SUPERVISOR-WORKER ARCHITECTURE</text>
+  <line x1="180" y1="40" x2="820" y2="40" stroke="#1e293b" stroke-width="1"/>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- USER LAYER -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <rect x="300" y="55" width="400" height="36" rx="6" fill="url(#gUser)" stroke="#22d3ee" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="500" y="72" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="bold">USER — Single Conversation Surface</text>
+  <text x="500" y="84" text-anchor="middle" fill="#64748b" font-size="8">Hermes Desktop · One chat · Multi-profile dispatch</text>
+
+  <!-- Arrow: User → Manager -->
+  <line x1="500" y1="91" x2="500" y2="115" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- MANAGER LAYER -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <rect x="250" y="118" width="500" height="75" rx="8" fill="url(#gMgr)" stroke="#475569" stroke-width="1"/>
+  <rect x="250" y="118" width="500" height="22" rx="8" fill="#0f172a"/>
+  <rect x="250" y="132" width="500" height="8" fill="#0f172a"/>
+  <text x="500" y="133" text-anchor="middle" fill="#22d3ee" font-size="9" font-weight="bold" letter-spacing="2">MANAGER PROFILE (default)</text>
+
+  <!-- Manager features -->
+  <text x="280" y="152" fill="#94a3b8" font-size="8">Routes tasks to forensics / pentest profiles</text>
+  <text x="280" y="163" fill="#94a3b8" font-size="8">Health checks via</text><text x="415" y="163" fill="#22d3ee" font-size="8" font-family="monospace"> check-labs</text>
+  <text x="280" y="174" fill="#94a3b8" font-size="8">Validates dispatch output · Presents findings to user</text>
+  <text x="280" y="185" fill="#dc2626" font-size="8" font-weight="bold">NEVER runs lab tools · NEVER touches vaults</text>
+
+  <!-- Red X overlay on tools -->
+  <rect x="620" y="145" width="110" height="38" rx="4" fill="none" stroke="#dc2626" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+  <text x="675" y="158" text-anchor="middle" fill="#fca5a5" font-size="7">nmap · vol3 · ffuf</text>
+  <text x="675" y="170" text-anchor="middle" fill="#fca5a5" font-size="7">SIFT VM · Docker · VPN</text>
+  <text x="675" y="180" text-anchor="middle" fill="#dc2626" font-size="7" font-weight="bold">✕ BLOCKED</text>
+
+  <!-- Dispatch arrows -->
+  <text x="315" y="198" fill="#475569" font-size="7">hermes -z --profile</text>
+  <text x="615" y="198" fill="#475569" font-size="7">hermes -z --profile</text>
+  <line x1="360" y1="193" x2="250" y2="230" stroke="#475569" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="640" y1="193" x2="750" y2="230" stroke="#475569" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- WORKER LAYER — FORENSICS (left) -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <rect x="50" y="233" width="430" height="420" rx="10" fill="url(#gForen)" stroke="#22d3ee" stroke-width="1" stroke-opacity="0.4"/>
+  <rect x="50" y="233" width="430" height="24" rx="10" fill="#0a1628"/>
+  <rect x="50" y="249" width="430" height="8" fill="#0a1628"/>
+  <text x="265" y="250" text-anchor="middle" fill="#22d3ee" font-size="10" font-weight="bold" letter-spacing="2">FORENSICS PROFILE</text>
+  <text x="265" y="270" text-anchor="middle" fill="#64748b" font-size="7">DFIR persona · 10 skills · 18-check canary · Approvals: manual</text>
+
+  <!-- Profile config mini -->
+  <rect x="68" y="280" width="394" height="14" rx="3" fill="#0f172a" stroke="#1e293b" stroke-width="0.5"/>
+  <text x="78" y="290" fill="#22d3ee" font-size="7" font-family="monospace">~/.hermes/profiles/forensics/</text>
+  <text x="350" y="290" fill="#64748b" font-size="7" font-family="monospace">SOUL.md · skills/ · config.yaml · .env</text>
+
+  <!-- Docker tools -->
+  <rect x="68" y="302" width="190" height="88" rx="5" fill="#0a1020" stroke="#1e293b" stroke-width="0.5"/>
+  <text x="80" y="316" fill="#94a3b8" font-size="7" font-weight="bold">DOCKER (host)</text>
+  <text x="80" y="330" fill="#22d3ee" font-size="7" font-family="monospace">volatility3 2.7.0</text>
+  <text x="80" y="342" fill="#22d3ee" font-size="7" font-family="monospace">plaso 20240512</text>
+  <text x="80" y="354" fill="#22d3ee" font-size="7" font-family="monospace">analyzeMFT 1.2.0.0</text>
+  <text x="80" y="366" fill="#22d3ee" font-size="7" font-family="monospace">MemProcFS 5.17+</text>
+  <text x="80" y="382" fill="#64748b" font-size="6">Memory · Timeline · MFT · Filesystem</text>
+
+  <!-- SIFT VM tools -->
+  <rect x="272" y="302" width="190" height="88" rx="5" fill="#0a1020" stroke="#1e293b" stroke-width="0.5"/>
+  <text x="284" y="316" fill="#94a3b8" font-size="7" font-weight="bold">SIFT VM (SSH via vmnet8 NAT)</text>
+  <text x="284" y="330" fill="#34d399" font-size="7" font-family="monospace">Sleuth Kit (fls/icat/istat)</text>
+  <text x="284" y="342" fill="#34d399" font-size="7" font-family="monospace">TShark 3.6.2</text>
+  <text x="284" y="354" fill="#34d399" font-size="7" font-family="monospace">RegRipper · foremost</text>
+  <text x="284" y="366" fill="#34d399" font-size="7" font-family="monospace">dc3dd · hashdeep · photorec</text>
+  <text x="284" y="382" fill="#64748b" font-size="6">Disk imaging · Carving · Registry</text>
+
+  <!-- Vault -->
+  <rect x="68" y="398" width="394" height="50" rx="5" fill="#0a1020" stroke="#eab308" stroke-width="0.8" stroke-opacity="0.5"/>
+  <text x="80" y="412" fill="#eab308" font-size="7" font-weight="bold">LUKS VAULT — 30GB (noauto)</text>
+  <text x="80" y="424" fill="#94a3b8" font-size="7" font-family="monospace">/home/user/forensics/</text>
+  <text x="80" y="438" fill="#64748b" font-size="6">cases/ · scripts/ · templates/ · tools/ · fixtures/ · mounts/</text>
+  <rect x="420" y="406" width="30" height="14" rx="3" fill="#eab308" fill-opacity="0.15" stroke="#eab308" stroke-width="0.5"/>
+  <text x="435" y="416" text-anchor="middle" fill="#eab308" font-size="6" font-weight="bold">ENOENT</text>
+
+  <!-- Report templates -->
+  <rect x="68" y="456" width="190" height="40" rx="5" fill="#0a1020" stroke="#1e293b" stroke-width="0.5"/>
+  <text x="80" y="470" fill="#94a3b8" font-size="7" font-weight="bold">REPORT TEMPLATES</text>
+  <text x="80" y="483" fill="#64748b" font-size="6">Data-first (white+ink, 01–10 sections, finding cards)</text>
+  <text x="80" y="494" fill="#64748b" font-size="6">Timeline (dark theme, visual swimlane)</text>
+
+  <!-- Workflow -->
+  <rect x="272" y="456" width="190" height="40" rx="5" fill="#0a1020" stroke="#22d3ee" stroke-width="0.5" stroke-opacity="0.4"/>
+  <text x="284" y="470" fill="#22d3ee" font-size="7" font-weight="bold">WORKFLOW (~60s bring-up)</text>
+  <text x="284" y="483" fill="#64748b" font-size="6">LUKS open → SIFT VM → Docker → canary → ready</text>
+  <text x="284" y="494" fill="#64748b" font-size="6">Case → Evidence → Analyze → Screenshots → Report</text>
+
+  <!-- Bottom stats bar -->
+  <rect x="68" y="504" width="394" height="28" rx="5" fill="#0a1020" stroke="#1e293b" stroke-width="0.5"/>
+  <text x="120" y="522" text-anchor="middle" fill="#22d3ee" font-size="9" font-weight="bold">18 checks</text>
+  <text x="120" y="532" text-anchor="middle" fill="#64748b" font-size="6">3 runtimes</text>
+  <text x="265" y="522" text-anchor="middle" fill="#22d3ee" font-size="9" font-weight="bold">12 tools</text>
+  <text x="265" y="532" text-anchor="middle" fill="#64748b" font-size="6">Docker + SIFT VM</text>
+  <text x="410" y="522" text-anchor="middle" fill="#22d3ee" font-size="9" font-weight="bold">2 templates</text>
+  <text x="410" y="532" text-anchor="middle" fill="#64748b" font-size="6">Data-first + Timeline</text>
+
+  <!-- Canary badge -->
+  <rect x="68" y="540" width="394" height="20" rx="3" fill="#059669" fill-opacity="0.1" stroke="#059669" stroke-width="0.5"/>
+  <text x="265" y="553" text-anchor="middle" fill="#34d399" font-size="7" font-family="monospace">session-canary.sh — 18/18 PASSED — all runtimes operational</text>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- WORKER LAYER — PENTEST (right) -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <rect x="520" y="233" width="430" height="420" rx="10" fill="url(#gPent)" stroke="#34d399" stroke-width="1" stroke-opacity="0.4"/>
+  <rect x="520" y="233" width="430" height="24" rx="10" fill="#0a1a0f"/>
+  <rect x="520" y="249" width="430" height="8" fill="#0a1a0f"/>
+  <text x="735" y="250" text-anchor="middle" fill="#34d399" font-size="10" font-weight="bold" letter-spacing="2">PENTEST PROFILE</text>
+  <text x="735" y="270" text-anchor="middle" fill="#64748b" font-size="7">Pentest persona · 5 skills · 14-check canary · Approvals: manual</text>
+
+  <!-- Profile config mini -->
+  <rect x="538" y="280" width="394" height="14" rx="3" fill="#0f172a" stroke="#1e293b" stroke-width="0.5"/>
+  <text x="548" y="290" fill="#34d399" font-size="7" font-family="monospace">~/.hermes/profiles/pentest/</text>
+  <text x="820" y="290" fill="#64748b" font-size="7" font-family="monospace">SOUL.md · skills/ · config.yaml · .env</text>
+
+  <!-- Docker containers -->
+  <rect x="538" y="302" width="190" height="88" rx="5" fill="#0a1020" stroke="#1e293b" stroke-width="0.5"/>
+  <text x="550" y="316" fill="#94a3b8" font-size="7" font-weight="bold">DOCKER CONTAINERS</text>
+  <text x="550" y="330" fill="#34d399" font-size="7" font-family="monospace">kali-web</text><text x="648" y="330" fill="#64748b" font-size="6">host net</text>
+  <text x="550" y="342" fill="#34d399" font-size="7" font-family="monospace">kali-net</text><text x="648" y="342" fill="#64748b" font-size="6">host net</text>
+  <text x="550" y="354" fill="#34d399" font-size="7" font-family="monospace">osint-tools</text><text x="648" y="354" fill="#64748b" font-size="6">bridge</text>
+  <text x="550" y="366" fill="#34d399" font-size="7" font-family="monospace">neo4j:5-community</text><text x="648" y="366" fill="#64748b" font-size="6">bridge</text>
+  <text x="550" y="382" fill="#64748b" font-size="6">Burp · ZAP · ffuf · sqlmap · nmap · CME · BloodHound</text>
+
+  <!-- VPN -->
+  <rect x="742" y="302" width="190" height="88" rx="5" fill="#0a1020" stroke="#1e293b" stroke-width="0.5"/>
+  <text x="754" y="316" fill="#94a3b8" font-size="7" font-weight="bold">OPSEC</text>
+  <text x="754" y="330" fill="#34d399" font-size="7" font-family="monospace">WireGuard VPN (&lt;VPN-provider&gt;)</text>
+  <text x="754" y="346" fill="#64748b" font-size="6">operstate check: != "down"</text>
+  <text x="754" y="362" fill="#94a3b8" font-size="7" font-weight="bold">TOOLS</text>
+  <text x="754" y="376" fill="#34d399" font-size="7" font-family="monospace">theHarvester · amass · subfinder</text>
+  <text x="754" y="388" fill="#64748b" font-size="6">crt.sh · nuclei · CrackMapExec</text>
+
+  <!-- Vault -->
+  <rect x="538" y="398" width="394" height="50" rx="5" fill="#0a1020" stroke="#eab308" stroke-width="0.8" stroke-opacity="0.5"/>
+  <text x="550" y="412" fill="#eab308" font-size="7" font-weight="bold">LUKS VAULT — 10GB</text>
+  <text x="550" y="424" fill="#94a3b8" font-size="7" font-family="monospace">/home/user/pentest/</text>
+  <text x="550" y="438" fill="#64748b" font-size="6">engagements/ · keys/ · wordlists/ · docker/volumes/ · tools/</text>
+  <rect x="890" y="406" width="30" height="14" rx="3" fill="#eab308" fill-opacity="0.15" stroke="#eab308" stroke-width="0.5"/>
+  <text x="905" y="416" text-anchor="middle" fill="#eab308" font-size="6" font-weight="bold">LUKS</text>
+
+  <!-- Reports -->
+  <rect x="538" y="456" width="190" height="40" rx="5" fill="#0a1020" stroke="#1e293b" stroke-width="0.5"/>
+  <text x="550" y="470" fill="#94a3b8" font-size="7" font-weight="bold">REPORT GENERATION</text>
+  <text x="550" y="483" fill="#64748b" font-size="6">Dark gradient cover · Scorecards · Heatmap</text>
+  <text x="550" y="494" fill="#64748b" font-size="6">build-report.py → HTML + PDF (A4)</text>
+
+  <!-- Workflow -->
+  <rect x="742" y="456" width="190" height="40" rx="5" fill="#0a1020" stroke="#34d399" stroke-width="0.5" stroke-opacity="0.4"/>
+  <text x="754" y="470" fill="#34d399" font-size="7" font-weight="bold">WORKFLOW</text>
+  <text x="754" y="483" fill="#64748b" font-size="6">LUKS mount → Docker up → VPN → canary</text>
+  <text x="754" y="494" fill="#64748b" font-size="6">OSINT → Recon → Exploit → Report</text>
+
+  <!-- Bottom stats bar -->
+  <rect x="538" y="504" width="394" height="28" rx="5" fill="#0a1020" stroke="#1e293b" stroke-width="0.5"/>
+  <text x="590" y="522" text-anchor="middle" fill="#34d399" font-size="9" font-weight="bold">14 checks</text>
+  <text x="590" y="532" text-anchor="middle" fill="#64748b" font-size="6">canary validates</text>
+  <text x="735" y="522" text-anchor="middle" fill="#34d399" font-size="9" font-weight="bold">4 containers</text>
+  <text x="735" y="532" text-anchor="middle" fill="#64748b" font-size="6">Docker Compose</text>
+  <text x="880" y="522" text-anchor="middle" fill="#34d399" font-size="9" font-weight="bold">22+ tools</text>
+  <text x="880" y="532" text-anchor="middle" fill="#64748b" font-size="6">kali-rolling base</text>
+
+  <!-- Canary badge -->
+  <rect x="538" y="540" width="394" height="20" rx="3" fill="#059669" fill-opacity="0.1" stroke="#059669" stroke-width="0.5"/>
+  <text x="735" y="553" text-anchor="middle" fill="#34d399" font-size="7" font-family="monospace">pentest-canary.sh — 14/14 PASSED — all services operational</text>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- DISPATCH ANNOTATIONS -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- Dispatch labels -->
+  <rect x="136" y="218" width="178" height="16" rx="3" fill="#0f172a" stroke="#475569" stroke-width="0.5"/>
+  <text x="225" y="229" text-anchor="middle" fill="#475569" font-size="7" font-family="monospace">hermes -z "...forensics task..."</text>
+
+  <rect x="686" y="218" width="178" height="16" rx="3" fill="#0f172a" stroke="#475569" stroke-width="0.5"/>
+  <text x="775" y="229" text-anchor="middle" fill="#475569" font-size="7" font-family="monospace">hermes -z "...pentest task..."</text>
+
+  <!-- Response arrows going back -->
+  <line x1="265" y1="653" x2="400" y2="200" stroke="#475569" stroke-width="0.8" stroke-dasharray="4,3" marker-end="url(#arrowLeft)" opacity="0.4"/>
+  <text x="295" y="428" fill="#475569" font-size="6" transform="rotate(-70,295,428)" opacity="0.5">findings → user</text>
+
+  <line x1="735" y1="653" x2="600" y2="200" stroke="#475569" stroke-width="0.8" stroke-dasharray="4,3" marker-end="url(#arrowLeft)" opacity="0.4"/>
+  <text x="700" y="428" fill="#475569" font-size="6" transform="rotate(70,700,428)" opacity="0.5">findings → user</text>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- BOTTOM LEGEND -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <rect x="50" y="575" width="900" height="55" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+  <text x="75" y="592" fill="#64748b" font-size="7" font-weight="bold">DESIGN PRINCIPLES</text>
+  
+  <!-- Principle 1 -->
+  <rect x="75" y="598" width="8" height="8" rx="2" fill="#22d3ee"/>
+  <text x="90" y="606" fill="#94a3b8" font-size="7">Supervisor-Worker pattern — manager routes, workers execute</text>
+
+  <!-- Principle 2 -->
+  <rect x="390" y="598" width="8" height="8" rx="2" fill="#dc2626"/>
+  <text x="405" y="606" fill="#94a3b8" font-size="7">Vault enforcement by ENOENT — locked vault = unreachable</text>
+
+  <!-- Principle 3 -->
+  <rect x="75" y="614" width="8" height="8" rx="2" fill="#eab308"/>
+  <text x="90" y="622" fill="#94a3b8" font-size="7">Fresh session per dispatch — no conversational state carries over</text>
+
+  <!-- Principle 4 -->
+  <rect x="390" y="614" width="8" height="8" rx="2" fill="#34d399"/>
+  <text x="405" y="622" fill="#94a3b8" font-size="7">Ponytail minimalism — 3 core scripts + 1 data file per lab</text>
+
+  <!-- Bottom bar -->
+  <rect x="50" y="640" width="900" height="30" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="0.5"/>
+  <text x="500" y="659" text-anchor="middle" fill="#475569" font-size="7">
+    github.com/jayelbotvibe-web/hermes-lab-manager · hermes-forensics-lab · hermes-pentest-lab · hermes-lab-dashboard
+  </text>
+</svg>
