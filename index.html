@@ -160,7 +160,6 @@
 
 <nav>
   <a href="#demo">Quick Demo</a>
-  <a href="#arch">Architecture</a>
   <a href="#hardware">Hardware</a>
   <a href="#profiles">Profiles</a>
   <a href="#vaults">Vaults</a>
@@ -200,61 +199,6 @@
 === FORENSICS ===
 === Results: 18 passed, 0 failed ===
 ✓ All runtimes operational — ready for investigation</pre></div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════ -->
-<div class="section" id="arch">
-  <h3>Architecture</h3>
-
-  <div class="arch">
-    <div class="arch-user">
-      USER — single conversation surface in Hermes Desktop
-    </div>
-    <div class="arch-mgr">
-      <div class="arch-label">Manager Profile</div>
-      <div class="arch-name" style="color:var(--cyan)">default</div>
-      <ul class="arch-list">
-        <li>Routes tasks</li>
-        <li>Health checks</li>
-        <li>Validates output</li>
-        <li>Never touches tools</li>
-      </ul>
-    </div>
-    <div class="arch-workers">
-      <div class="arch-worker">
-        <div class="arch-label">Worker Profile</div>
-        <div class="arch-name f">forensics</div>
-        <ul class="arch-list">
-          <li><code>hermes -z --profile forensics</code></li>
-          <li>DFIR persona + 10 skills</li>
-          <li>Docker: volatility3, plaso, MFT</li>
-          <li>MemProcFS mount</li>
-          <li>SIFT VM via SSH (tshark, sleuthkit, foremost)</li>
-          <li>30GB LUKS vault</li>
-          <li>Canary: 18 checks / 3 runtimes</li>
-        </ul>
-      </div>
-      <div class="arch-worker">
-        <div class="arch-label">Worker Profile</div>
-        <div class="arch-name p">pentest</div>
-        <ul class="arch-list">
-          <li><code>hermes -z --profile pentest</code></li>
-          <li>Pentest persona + 5 skills</li>
-          <li>Docker: kali-web, kali-net, osint, neo4j</li>
-          <li>BloodHound + CrackMapExec</li>
-          <li>WireGuard VPN (<VPN-provider>)</li>
-          <li>10GB LUKS vault</li>
-          <li>Canary: 14 checks</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <p style="font-size:11px;color:var(--faint)">
-    Pattern: <strong>Supervisor (Orchestrator-Worker)</strong> — one of four proven multi-agent patterns alongside Router, Pipeline, and Swarm.
-    Each dispatch creates a fresh session. No conversational state carries between dispatches.
-    The manager bridges continuity by including relevant context in subsequent prompts.
-  </p>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
