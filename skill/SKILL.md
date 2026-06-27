@@ -79,7 +79,7 @@ hermes -z "Run full memory forensics analysis on /home/USER/cases/CASE/memory.dm
 ## Health
 
 ```bash
-bash /home/niel/.hermes/scripts/check-labs
+bash /home/user/.hermes/scripts/check-labs
 ```
 
 ## Folder Structure
@@ -94,15 +94,15 @@ Quick reference:
 ## Key Pitfalls
 
 ### SSH + HOME sandboxing
-Profiles sandbox HOME. SSH MUST use absolute identity: `-i /home/niel/.ssh/id_rsa`.
+Profiles sandbox HOME. SSH MUST use absolute identity: `-i /home/user/.ssh/id_rsa`.
 Never `~/.ssh/` — the tilde resolves to `~/.hermes/profiles/<name>/home`.
 
 ### ConnectTimeout
-Use 10 seconds for SSH to SIFT VM (172.16.146.128 vmnet8 NAT).
+Use 10 seconds for SSH to SIFT VM (<SIFT-VM-IP> vmnet8 NAT).
 3 seconds causes intermittent failures after Docker commands.
 
 ### SIFT VM cold boot
-`hermes-sift-vm.service` has `ExecStartPre` that polls vmnet8 for 172.16.146.x before launching VM. Manual recovery: `vmrun -T ws start /home/niel/vmware/SIFT/SIFT.vmx nogui` (wait 25-45s for SSH).
+`hermes-sift-vm.service` has `ExecStartPre` that polls vmnet8 for <SIFT-VM-SUBNET> before launching VM. Manual recovery: `vmrun -T ws start /home/user/vmware/SIFT/SIFT.vmx nogui` (wait 25-45s for SSH).
 
 ### SIFT VM MUST use NAT, not bridged, on WiFi
 Bridged networking over WiFi causes DHCP lease expiration and IP drift. Fix: NAT (vmnet8) with static IP.

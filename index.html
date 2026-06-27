@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hermes Lab Manager — Multi-Profile AI Forensics & Pentest Orchestration</title>
+<meta property="og:title" content="Hermes Lab Manager">
+<meta property="og:description" content="Multi-profile AI orchestration for DFIR &amp; pentesting — two labs, one machine, zero context pollution">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hermes Lab Manager">
+<meta name="twitter:description" content="Multi-profile AI orchestration for DFIR &amp; pentesting — two labs, one machine, zero context pollution">
+<title>Hermes Lab Manager — Multi-Profile AI Forensics &amp; Pentest Orchestration</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' rx='3' fill='%230f172a'/><text x='8' y='12' text-anchor='middle' font-family='monospace' font-size='10' font-weight='bold' fill='%2322d3ee'>HM</text></svg>">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
@@ -125,6 +132,18 @@
   footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 10px; color: #475569; }
   footer a { color: var(--faint); text-decoration: none; }
   footer a:hover { color: var(--cyan); }
+
+  @media (max-width: 768px) {
+    .container { padding: 24px 12px; }
+    .arch { grid-template-columns: 1fr; }
+    .arch-mgr { border-right: none; border-bottom: 1px solid var(--border); }
+    .arch-workers { grid-template-columns: 1fr; }
+    .arch-worker:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+    .specs { grid-template-columns: repeat(2, 1fr); }
+    table { font-size: 10px; }
+    th, td { padding: 6px 8px; }
+    nav a { display: inline-block; margin-bottom: 6px; }
+  }
 </style>
 </head>
 <body>
@@ -139,6 +158,7 @@
 </header>
 
 <nav>
+  <a href="#demo">Quick Demo</a>
   <a href="#arch">Architecture</a>
   <a href="#hardware">Hardware</a>
   <a href="#profiles">Profiles</a>
@@ -165,12 +185,29 @@
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section" id="demo">
+  <h3>Quick Demo</h3>
+  <p style="font-size:11px;color:var(--muted);margin-bottom:12px">
+    One command checks both labs. Forensics: 18 tools across 3 runtimes. Pentest: 14 services including Docker containers, WireGuard VPN, and LUKS vault.
+  </p>
+  <div class="cmd"><pre>$ bash check-labs
+
+=== PENTEST ===
+=== Results: 14 passed, 0 failed ===
+✓ All services operational — ready for engagement
+
+=== FORENSICS ===
+=== Results: 18 passed, 0 failed ===
+✓ All runtimes operational — ready for investigation</pre></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
 <div class="section" id="arch">
   <h3>Architecture</h3>
 
   <div class="arch">
     <div class="arch-user">
-      USER (niel) — single conversation surface in Hermes Desktop
+      USER — single conversation surface in Hermes Desktop
     </div>
     <div class="arch-mgr">
       <div class="arch-label">Manager Profile</div>
@@ -204,7 +241,7 @@
           <li>Pentest persona + 5 skills</li>
           <li>Docker: kali-web, kali-net, osint, neo4j</li>
           <li>BloodHound + CrackMapExec</li>
-          <li>WireGuard VPN (ProtonVPN)</li>
+          <li>WireGuard VPN (<VPN-provider>)</li>
           <li>10GB LUKS vault</li>
           <li>Canary: 14 checks</li>
         </ul>
@@ -227,16 +264,16 @@
     <div class="spec"><span class="val">i7-11800H</span><span class="lbl">CPU (8C/16T)</span></div>
     <div class="spec"><span class="val">30 GB</span><span class="lbl">RAM</span></div>
     <div class="spec"><span class="val">468 GB</span><span class="lbl">NVMe SSD</span></div>
-    <div class="spec"><span class="val">Ubuntu 26.04</span><span class="lbl">Kernel 7.0</span></div>
+    <div class="spec"><span class="val">Ubuntu 24.04+</span><span class="lbl">RECENT KERNEL</span></div>
   </div>
 
   <table>
     <tr><th>Component</th><th>Version</th><th>Purpose</th></tr>
     <tr><td>Hermes Agent</td><td><code>v0.17.0</code></td><td>AI orchestration — profiles, one-shot dispatch, skills</td></tr>
-    <tr><td>Docker</td><td><code>29.1.3</code></td><td>Container runtime for volatility3, plaso, MFT, pentest tools</td></tr>
+    <tr><td>Docker</td><td>latest stable</td><td>Container runtime for volatility3, plaso, MFT, pentest tools</td></tr>
     <tr><td>VMware Workstation</td><td><code>17.x</code></td><td>SIFT Workstation VM (forensics native tools)</td></tr>
     <tr><td>LUKS / cryptsetup</td><td><code>2.7+</code></td><td>Encrypted vaults for evidence and engagement data</td></tr>
-    <tr><td>WireGuard</td><td><code>1.x</code></td><td>VPN for pentest OPSEC (ProtonVPN)</td></tr>
+    <tr><td>WireGuard</td><td><code>1.x</code></td><td>VPN for pentest OPSEC (<VPN-provider>)</td></tr>
     <tr><td>WeasyPrint</td><td><code>62+</code></td><td>HTML → PDF report generation</td></tr>
     <tr><td>gh CLI</td><td><code>2.x</code></td><td>GitHub Pages deployment, repo management</td></tr>
     <tr><td>Python</td><td><code>3.14</code></td><td>Report generation, screenshot automation, helper scripts</td></tr>
@@ -288,8 +325,8 @@ terminal:
   backend: local          # MUST be local — profile needs host file access
   timeout: 600
 model:
-  default: deepseek-v4-pro
-  provider: deepseek
+  default: <your-model>
+  provider: <your-provider>
 memory:
   memory_enabled: true
 approvals:
@@ -302,7 +339,7 @@ approvals:
 
   <p style="font-size:11px;color:var(--muted);margin-bottom:12px">
     Both labs use LUKS-encrypted loop devices for at-rest encryption. Keyfiles stored at
-    <code>/home/niel/.forensics-keyfile</code> and <code>/home/niel/.pentest-keyfile</code> (chmod 600).
+    <code>/home/user/.forensics-keyfile</code> and <code>/home/user/.pentest-keyfile</code> (chmod 600).
     Forensics uses <code>noauto</code> in crypttab (manual mount only). Pentest vault does not survive reboot.
   </p>
 
@@ -310,16 +347,16 @@ approvals:
     <tr><th>Vault</th><th>File</th><th>Size</th><th>Mount</th><th>Contents</th></tr>
     <tr>
       <td>Forensics</td>
-      <td><code>/home/niel/forensics.img</code></td>
+      <td><code>/home/user/forensics.img</code></td>
       <td>30 GB</td>
-      <td><code>/home/niel/forensics/</code></td>
+      <td><code>/home/user/forensics/</code></td>
       <td>Cases, scripts, templates, tool catalog, evidence (read-only)</td>
     </tr>
     <tr>
       <td>Pentest</td>
-      <td><code>/home/niel/pentest-vault.img</code></td>
+      <td><code>/home/user/pentest-vault.img</code></td>
       <td>10 GB</td>
-      <td><code>/home/niel/pentest/</code></td>
+      <td><code>/home/user/pentest/</code></td>
       <td>Engagements, keys, wordlists, Docker volumes, tool data</td>
     </tr>
   </table>
@@ -331,13 +368,13 @@ approvals:
   </div>
 
   <h4>Keyfile setup (one-time)</h4>
-  <div class="cmd"><pre>echo -n '&lt;password&gt;' > /home/niel/.forensics-keyfile
-chmod 600 /home/niel/.forensics-keyfile</pre></div>
+  <div class="cmd"><pre>echo -n '&lt;password&gt;' > /home/user/.forensics-keyfile
+chmod 600 /home/user/.forensics-keyfile</pre></div>
 
   <h4>Manual mount (if automount fails)</h4>
-  <div class="cmd"><pre>sudo cryptsetup luksOpen --key-file /home/niel/.forensics-keyfile \
-    /home/niel/forensics.img forensics_crypt
-sudo mount /dev/mapper/forensics_crypt /home/niel/forensics</pre></div>
+  <div class="cmd"><pre>sudo cryptsetup luksOpen --key-file /home/user/.forensics-keyfile \
+    /home/user/forensics.img forensics_crypt
+sudo mount /dev/mapper/forensics_crypt /home/user/forensics</pre></div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
@@ -364,7 +401,7 @@ sudo mount /dev/mapper/forensics_crypt /home/niel/forensics</pre></div>
   <h4>SIFT VM</h4>
   <div class="info">
     SIFT Workstation VM runs on VMware Workstation with <strong>NAT (vmnet8)</strong> networking —
-    static IP <code>172.16.146.128</code>, SSH on port 22.
+    static IP <code><SIFT-VM-IP></code>, SSH on port 22.
     Bridged networking over WiFi causes DHCP lease expiration and IP drift between sessions — NAT is the fix.
     The SSH wrapper script (<code>sift-exec.sh</code>) handles the absolute key path requirement
     (profiles sandbox <code>$HOME</code> so <code>~/.ssh/</code> resolves wrong).
@@ -372,32 +409,32 @@ sudo mount /dev/mapper/forensics_crypt /home/niel/forensics</pre></div>
   </div>
 
   <h4>Bring-up (one command, ~60s)</h4>
-  <div class="cmd"><pre>bash /home/niel/forensics/scripts/forensics-up.sh
+  <div class="cmd"><pre>bash /home/user/forensics/scripts/forensics-up.sh
 # Opens LUKS → starts SIFT VM → waits for SSH → checks Docker → runs canary → reports status</pre></div>
 
   <h4>New case (one command)</h4>
-  <div class="cmd"><pre>CASE_ID=$(bash /home/niel/forensics/scripts/forensics-case.sh "Case Description")</pre></div>
+  <div class="cmd"><pre>CASE_ID=$(bash /home/user/forensics/scripts/forensics-case.sh "Case Description")</pre></div>
 
   <h4>Analysis workflow</h4>
   <div class="cmd"><pre># Register evidence (hash → verify → chmod → evidence.json → audit)
-bash /home/niel/forensics/scripts/forensics-register.sh $CASE ~/dump.mem "source_url" "sha256"
+bash /home/user/forensics/scripts/forensics-register.sh $CASE ~/dump.mem "source_url" "sha256"
 
 # Run volatility3
-bash /home/niel/forensics/scripts/forensics-vol3.sh $CASE windows.pslist.PsList
-bash /home/niel/forensics/scripts/forensics-vol3.sh $CASE windows.netscan.NetScan
+bash /home/user/forensics/scripts/forensics-vol3.sh $CASE windows.pslist.PsList
+bash /home/user/forensics/scripts/forensics-vol3.sh $CASE windows.netscan.NetScan
 
 # Mount MemProcFS
-bash /home/niel/forensics/scripts/forensics-mount.sh $CASE
+bash /home/user/forensics/scripts/forensics-mount.sh $CASE
 
 # Record findings
-bash /home/niel/forensics/scripts/forensics-find.sh $CASE "Title" HIGH "tool" "cmd" "EVID" "raw" "finding"
+bash /home/user/forensics/scripts/forensics-find.sh $CASE "Title" HIGH "tool" "cmd" "EVID" "raw" "finding"
 
 # Screenshots of raw tool output
-python3 /home/niel/forensics/scripts/forensics-screenshots.py /home/niel/forensics/cases/$CASE
+python3 /home/user/forensics/scripts/forensics-screenshots.py /home/user/forensics/cases/$CASE
 
 # Generate reports (data-first + timeline)
-bash /home/niel/forensics/scripts/forensics-report.sh $CASE --html
-bash /home/niel/forensics/scripts/forensics-report.sh $CASE --pdf</pre></div>
+bash /home/user/forensics/scripts/forensics-report.sh $CASE --html
+bash /home/user/forensics/scripts/forensics-report.sh $CASE --pdf</pre></div>
 
   <h4>Report templates</h4>
   <table>
@@ -422,7 +459,7 @@ bash /home/niel/forensics/scripts/forensics-report.sh $CASE --pdf</pre></div>
   </div>
 
   <h4>Shutdown</h4>
-  <div class="cmd"><pre>bash /home/niel/forensics/scripts/forensics-down.sh
+  <div class="cmd"><pre>bash /home/user/forensics/scripts/forensics-down.sh
 # Unmounts MemProcFS → stops SIFT VM → locks LUKS</pre></div>
 </div>
 
@@ -445,7 +482,7 @@ bash /home/niel/forensics/scripts/forensics-report.sh $CASE --pdf</pre></div>
   </div>
 
   <h4>Vault layout</h4>
-  <div class="cmd"><pre>/home/niel/pentest/
+  <div class="cmd"><pre>/home/user/pentest/
 ├── engagements/        # Per-engagement: findings, reports, screenshots
 ├── keys/               # SSH keys, API tokens
 ├── wordlists/          # SecLists, custom
@@ -454,19 +491,19 @@ bash /home/niel/forensics/scripts/forensics-report.sh $CASE --pdf</pre></div>
     └── volumes/        # neo4j data, persistent tool storage</pre></div>
 
   <h4>Bring-up</h4>
-  <div class="cmd"><pre>bash /home/niel/pentest-repo/scripts/pentest-up.sh
+  <div class="cmd"><pre>bash /home/user/pentest-repo/scripts/pentest-up.sh
 # Mounts LUKS vault → starts Docker containers → verifies VPN → runs canary</pre></div>
 
   <h4>VPN (WireGuard)</h4>
   <div class="info">
-    WireGuard interface <code>wg0</code> connects to ProtonVPN. Detection pitfall:
+    WireGuard interface <code>wg0</code> connects to <VPN-provider>. Detection pitfall:
     <code>/sys/class/net/wg0/operstate</code> reports <code>"unknown"</code>, not <code>"up"</code>.
     Check with <code>!= "down"</code> — any non-down state is active.
   </div>
 
   <h4>Report generation</h4>
-  <div class="cmd"><pre>python3 /home/niel/pentest-repo/scripts/build-report.py \
-    --engagement-dir /home/niel/pentest/engagements/&lt;name&gt; \
+  <div class="cmd"><pre>python3 /home/user/pentest-repo/scripts/build-report.py \
+    --engagement-dir /home/user/pentest/engagements/&lt;name&gt; \
     --output-pdf report.pdf --output-html report.html</pre></div>
   <p style="font-size:10px;color:var(--faint)">
     Dark gradient cover · 4-category scorecards · findings heatmap · inline evidence screenshots ·
@@ -502,7 +539,7 @@ hermes -z "Run full pentest engagement against example.com.
   <h4>Prompt construction checklist</h4>
   <table>
     <tr><th>Element</th><th>Example</th><th>Why</th></tr>
-    <tr><td>Absolute paths</td><td><code>/home/niel/Downloads/dump.mem</code></td><td>Profiles sandbox <code>$HOME</code></td></tr>
+    <tr><td>Absolute paths</td><td><code>/home/user/Downloads/dump.mem</code></td><td>Profiles sandbox <code>$HOME</code></td></tr>
     <tr><td>Canary first</td><td><code>Run canary first, report degraded tools</code></td><td>Catch tool failures before evidence analysis</td></tr>
     <tr><td>Scope boundaries</td><td><code>Scope: example.com and *.example.com</code></td><td>Prevent scope creep</td></tr>
     <tr><td>Output request</td><td><code>Report the PDF path when done</code></td><td>Manager knows where to find artifacts</td></tr>
@@ -514,7 +551,7 @@ hermes -z "Run full pentest engagement against example.com.
 <div class="section" id="health">
   <h3>Health Check</h3>
 
-  <div class="cmd"><pre>bash /home/niel/.hermes/scripts/check-labs</pre></div>
+  <div class="cmd"><pre>bash /home/user/.hermes/scripts/check-labs</pre></div>
 
   <div class="cmd"><pre>=== PENTEST ===
 === Results: 14 passed, 0 failed ===
@@ -549,26 +586,26 @@ hermes -z "Run the pentest canary and report pass/fail." --profile pentest</pre>
 
   <table>
     <tr><th>Path</th><th>What</th><th>Gate</th></tr>
-    <tr><td><code>/home/niel/.hermes/profiles/forensics/</code></td><td>Forensics profile — SOUL, skills, config, .env</td><td>None</td></tr>
-    <tr><td><code>/home/niel/.hermes/profiles/pentest/</code></td><td>Pentest profile — SOUL, skills, config, .env</td><td>None</td></tr>
-    <tr><td><code>/home/niel/.hermes/scripts/check-labs</code></td><td>5-line health check — runs both canaries</td><td>None</td></tr>
-    <tr><td><code>/home/niel/.hermes/skills/devops/lab-manager/</code></td><td>Manager skill — routing rules, dispatch, pitfalls</td><td>None</td></tr>
-    <tr><td><code>/home/niel/forensics/</code></td><td>LUKS mount — cases, scripts, templates, tools</td><td>Keyfile</td></tr>
-    <tr><td><code>/home/niel/forensics/cases/INC-YYYY-MMDD-NNNN/</code></td><td>Per-case: evidence, raw/, reports/, findings.json, audit/</td><td>Vault mount</td></tr>
-    <tr><td><code>/home/niel/forensics/scripts/</code></td><td>Automation: canary, sift-exec, up/down, report, vol3, find, case, register, mount, screenshots</td><td>Vault mount</td></tr>
-    <tr><td><code>/home/niel/forensics/templates/</code></td><td>Report templates (data-first + timeline)</td><td>Vault mount</td></tr>
-    <tr><td><code>/home/niel/forensics/tools/tool-catalog.yaml</code></td><td>Tool registry — versions, entrypoints, pitfalls</td><td>Vault mount</td></tr>
-    <tr><td><code>/home/niel/forensics/fixtures/</code></td><td>Known-good test fixtures for canary validation</td><td>Vault mount</td></tr>
-    <tr><td><code>/home/niel/pentest/</code></td><td>LUKS mount — engagements, keys, wordlists, Docker volumes</td><td>Keyfile</td></tr>
-    <tr><td><code>/home/niel/pentest-repo/</code></td><td>Scripts and skills — git-tracked, outside vault</td><td>None</td></tr>
-    <tr><td><code>/home/niel/pentest-repo/scripts/pentest-canary.sh</code></td><td>14 checks</td><td>None</td></tr>
-    <tr><td><code>/home/niel/pentest-repo/scripts/pentest-up.sh</code></td><td>Container + VPN startup</td><td>None</td></tr>
-    <tr><td><code>/home/niel/pentest-repo/scripts/pentest-down.sh</code></td><td>Graceful shutdown</td><td>None</td></tr>
-    <tr><td><code>/home/niel/pentest-repo/scripts/build-report.py</code></td><td>Automated pentest report generation</td><td>None</td></tr>
-    <tr><td><code>/home/niel/pentest/docker/</code></td><td>Docker Compose + per-container build contexts</td><td>Vault mount</td></tr>
-    <tr><td><code>/home/niel/vmware/SIFT/</code></td><td>SIFT Workstation VM files</td><td>None</td></tr>
-    <tr><td><code>/home/niel/hermes-forensics-lab/</code></td><td>Public repo — README, sample reports, docs</td><td>None</td></tr>
-    <tr><td><code>/home/niel/hermes-lab-dashboard/</code></td><td>Public repo — boot flow, tray launcher, architecture diagram</td><td>None</td></tr>
+    <tr><td><code>/home/user/.hermes/profiles/forensics/</code></td><td>Forensics profile — SOUL, skills, config, .env</td><td>None</td></tr>
+    <tr><td><code>/home/user/.hermes/profiles/pentest/</code></td><td>Pentest profile — SOUL, skills, config, .env</td><td>None</td></tr>
+    <tr><td><code>/home/user/.hermes/scripts/check-labs</code></td><td>5-line health check — runs both canaries</td><td>None</td></tr>
+    <tr><td><code>/home/user/.hermes/skills/devops/lab-manager/</code></td><td>Manager skill — routing rules, dispatch, pitfalls</td><td>None</td></tr>
+    <tr><td><code>/home/user/forensics/</code></td><td>LUKS mount — cases, scripts, templates, tools</td><td>Keyfile</td></tr>
+    <tr><td><code>/home/user/forensics/cases/INC-YYYY-MMDD-NNNN/</code></td><td>Per-case: evidence, raw/, reports/, findings.json, audit/</td><td>Vault mount</td></tr>
+    <tr><td><code>/home/user/forensics/scripts/</code></td><td>Automation: canary, sift-exec, up/down, report, vol3, find, case, register, mount, screenshots</td><td>Vault mount</td></tr>
+    <tr><td><code>/home/user/forensics/templates/</code></td><td>Report templates (data-first + timeline)</td><td>Vault mount</td></tr>
+    <tr><td><code>/home/user/forensics/tools/tool-catalog.yaml</code></td><td>Tool registry — versions, entrypoints, pitfalls</td><td>Vault mount</td></tr>
+    <tr><td><code>/home/user/forensics/fixtures/</code></td><td>Known-good test fixtures for canary validation</td><td>Vault mount</td></tr>
+    <tr><td><code>/home/user/pentest/</code></td><td>LUKS mount — engagements, keys, wordlists, Docker volumes</td><td>Keyfile</td></tr>
+    <tr><td><code>/home/user/pentest-repo/</code></td><td>Scripts and skills — git-tracked, outside vault</td><td>None</td></tr>
+    <tr><td><code>/home/user/pentest-repo/scripts/pentest-canary.sh</code></td><td>14 checks</td><td>None</td></tr>
+    <tr><td><code>/home/user/pentest-repo/scripts/pentest-up.sh</code></td><td>Container + VPN startup</td><td>None</td></tr>
+    <tr><td><code>/home/user/pentest-repo/scripts/pentest-down.sh</code></td><td>Graceful shutdown</td><td>None</td></tr>
+    <tr><td><code>/home/user/pentest-repo/scripts/build-report.py</code></td><td>Automated pentest report generation</td><td>None</td></tr>
+    <tr><td><code>/home/user/pentest/docker/</code></td><td>Docker Compose + per-container build contexts</td><td>Vault mount</td></tr>
+    <tr><td><code>/home/user/vmware/SIFT/</code></td><td>SIFT Workstation VM files</td><td>None</td></tr>
+    <tr><td><code>/home/user/hermes-forensics-lab/</code></td><td>Public repo — README, sample reports, docs</td><td>None</td></tr>
+    <tr><td><code>/home/user/hermes-lab-dashboard/</code></td><td>Public repo — boot flow, tray launcher, architecture diagram</td><td>None</td></tr>
   </table>
 </div>
 
@@ -585,7 +622,7 @@ hermes -z "Run the pentest canary and report pass/fail." --profile pentest</pre>
   <div style="margin-bottom:10px">
     <span class="tag tag-bug">BUG</span>
     <strong>SSH + HOME sandboxing:</strong> Profiles sandbox <code>$HOME</code> to <code>~/.hermes/profiles/&lt;name&gt;/home</code>.
-    SSH identity paths MUST be absolute: <code>-i /home/niel/.ssh/id_rsa</code>.
+    SSH identity paths MUST be absolute: <code>-i /home/user/.ssh/id_rsa</code>.
     The <code>sift-exec.sh</code> wrapper handles this automatically.
   </div>
 
@@ -597,7 +634,7 @@ hermes -z "Run the pentest canary and report pass/fail." --profile pentest</pre>
 
   <div style="margin-bottom:10px">
     <span class="tag tag-fix">FIX</span>
-    <strong>SIFT VM cold boot:</strong> <code>hermes-sift-vm.service</code> polls vmnet8 for 172.16.146.x
+    <strong>SIFT VM cold boot:</strong> <code>hermes-sift-vm.service</code> polls vmnet8 for <SIFT-VM-SUBNET>
     (up to 30s) before launching the VM. Manual recovery: <code>vmrun -T ws start ~/vmware/SIFT/SIFT.vmx nogui</code>
     (wait 25–45s for SSH).
   </div>
@@ -605,7 +642,7 @@ hermes -z "Run the pentest canary and report pass/fail." --profile pentest</pre>
   <div style="margin-bottom:10px">
     <span class="tag tag-fix">FIX</span>
     <strong>SIFT VM MUST use NAT, not bridged, on WiFi:</strong> Bridged networking over WiFi is unreliable —
-    DHCP leases expire, APs drop VM MAC addresses. Fix: NAT (vmnet8) with static IP 172.16.146.128 +
+    DHCP leases expire, APs drop VM MAC addresses. Fix: NAT (vmnet8) with static IP <SIFT-VM-IP> +
     port forward 2222→22 in <code>/etc/vmware/vmnet8/nat/nat.conf</code>.
   </div>
 
@@ -651,7 +688,7 @@ hermes -z "Run the pentest canary and report pass/fail." --profile pentest</pre>
     <span class="tag tag-fix">FIX</span>
     <strong>MemProcFS mount resilience:</strong> Large dumps (>4GB) take 60–120s to initialize.
     Stale FUSE mounts → <code>fusermount -u &lt;path&gt;</code>, remove dir, recreate.
-    Mount point must be user-writable (<code>/home/niel/forensics/mounts/</code>, not <code>/mnt</code>).
+    Mount point must be user-writable (<code>/home/user/forensics/mounts/</code>, not <code>/mnt</code>).
   </div>
 
   <div style="margin-bottom:10px">
@@ -685,34 +722,34 @@ git clone https://github.com/jayelbotvibe-web/hermes-pentest-lab.git ~/pentest-r
 
   <h4>Step 3: Create LUKS vaults</h4>
   <div class="cmd"><pre># Forensics vault (30 GB)
-dd if=/dev/zero of=/home/niel/forensics.img bs=1M count=30720
-sudo cryptsetup luksFormat /home/niel/forensics.img
-sudo cryptsetup luksOpen /home/niel/forensics.img forensics_crypt
+dd if=/dev/zero of=/home/user/forensics.img bs=1M count=30720
+sudo cryptsetup luksFormat /home/user/forensics.img
+sudo cryptsetup luksOpen /home/user/forensics.img forensics_crypt
 sudo mkfs.ext4 /dev/mapper/forensics_crypt
-sudo mount /dev/mapper/forensics_crypt /home/niel/forensics
-sudo chown niel:niel /home/niel/forensics
+sudo mount /dev/mapper/forensics_crypt /home/user/forensics
+sudo chown $USER:$USER /home/user/forensics
 
 # Pentest vault (10 GB)
-dd if=/dev/zero of=/home/niel/pentest-vault.img bs=1M count=10240
-sudo cryptsetup luksFormat /home/niel/pentest-vault.img
-sudo cryptsetup luksOpen /home/niel/pentest-vault.img pentest-vault
+dd if=/dev/zero of=/home/user/pentest-vault.img bs=1M count=10240
+sudo cryptsetup luksFormat /home/user/pentest-vault.img
+sudo cryptsetup luksOpen /home/user/pentest-vault.img pentest-vault
 sudo mkfs.ext4 /dev/mapper/pentest-vault
-sudo mount /dev/mapper/pentest-vault /home/niel/pentest
-sudo chown niel:niel /home/niel/pentest</pre></div>
+sudo mount /dev/mapper/pentest-vault /home/user/pentest
+sudo chown $USER:$USER /home/user/pentest</pre></div>
 
   <h4>Step 4: Set up keyfiles (passwordless mount)</h4>
-  <div class="cmd"><pre>echo -n '&lt;password&gt;' > /home/niel/.forensics-keyfile
-echo -n '&lt;password&gt;' > /home/niel/.pentest-keyfile
-chmod 600 /home/niel/.forensics-keyfile /home/niel/.pentest-keyfile
+  <div class="cmd"><pre>echo -n '&lt;password&gt;' > /home/user/.forensics-keyfile
+echo -n '&lt;password&gt;' > /home/user/.pentest-keyfile
+chmod 600 /home/user/.forensics-keyfile /home/user/.pentest-keyfile
 
 # Add forensics to crypttab (noauto — manual mount only)
-echo "forensics_crypt /home/niel/forensics.img /home/niel/.forensics-keyfile luks,noauto" | \
+echo "forensics_crypt /home/user/forensics.img /home/user/.forensics-keyfile luks,noauto" | \
   sudo tee -a /etc/crypttab</pre></div>
 
   <h4>Step 5: Set up SIFT VM</h4>
   <div class="cmd"><pre># Download SIFT OVA from SANS Portal, import into VMware
-# Configure NAT networking (vmnet8) with static IP 172.16.146.128
-# SSH key copy: ssh-copy-id sansforensics@172.16.146.128</pre></div>
+# Configure NAT networking (vmnet8) with static IP <SIFT-VM-IP>
+# SSH key copy: ssh-copy-id user@<SIFT-VM-IP></pre></div>
 
   <h4>Step 6: Build Docker images</h4>
   <div class="cmd"><pre># Forensics tools
@@ -739,8 +776,8 @@ cp ~/.hermes/.env ~/.hermes/profiles/pentest/.env</pre></div>
   <div class="cmd"><pre>cat > ~/.hermes/scripts/check-labs << 'EOF'
 #!/bin/bash
 set -e
-echo "=== PENTEST ===" && bash /home/niel/pentest-repo/scripts/pentest-canary.sh 2>&1 | tail -3
-echo "" && echo "=== FORENSICS ===" && bash /home/niel/forensics/scripts/session-canary.sh 2>&1 | tail -3
+echo "=== PENTEST ===" && bash /home/user/pentest-repo/scripts/pentest-canary.sh 2>&1 | tail -3
+echo "" && echo "=== FORENSICS ===" && bash /home/user/forensics/scripts/session-canary.sh 2>&1 | tail -3
 EOF
 chmod +x ~/.hermes/scripts/check-labs</pre></div>
 
@@ -758,7 +795,7 @@ hermes -z "Run canary and report pass/fail." --profile pentest</pre></div>
 bash ~/.hermes/scripts/check-labs
 
 # 2. Route a forensic task
-hermes -z "Run canary. Analyze network capture at /home/niel/Downloads/capture.pcap.
+hermes -z "Run canary. Analyze network capture at /home/user/Downloads/capture.pcap.
   Use tshark on SIFT VM. Open a case, register evidence, identify IOCs.
   Generate data-first report with screenshots. Report summary when done."
   --profile forensics
@@ -767,6 +804,10 @@ hermes -z "Run canary. Analyze network capture at /home/niel/Downloads/capture.p
 hermes -z "Run canary. Passive OSINT on example.com. Zero packets.
   Use theHarvester, crt.sh. Return subdomains, emails, exposed tech.
   No active scanning." --profile pentest</pre></div>
+</div>
+
+<div style="text-align:center;margin:40px 0 20px">
+  <a href="#" style="color:var(--faint);font-size:10px;text-decoration:none">↑ Back to top</a>
 </div>
 
 <footer>

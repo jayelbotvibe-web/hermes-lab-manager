@@ -10,10 +10,10 @@ Profiles sandbox `$HOME` to `~/.hermes/profiles/<name>/home`. SSH identity paths
 
 ```bash
 # WRONG — sandboxed HOME doesn't have .ssh/
-ssh sansforensics@172.16.146.128 "command"
+ssh user@<SIFT-VM-IP> "command"
 
 # RIGHT
-ssh -i /home/niel/.ssh/id_rsa sansforensics@172.16.146.128 "command"
+ssh -i /home/user/.ssh/id_rsa user@<SIFT-VM-IP> "command"
 ```
 
 The `sift-exec.sh` wrapper handles this automatically. Every new SSH wrapper must use absolute key paths.
@@ -28,11 +28,11 @@ Use **10 seconds** for SSH to SIFT VM. 3 seconds causes intermittent failures wh
 
 ### FIX — SIFT VM cold boot race
 
-`hermes-sift-vm.service` has an `ExecStartPre` that polls vmnet8 for `172.16.146.x` (up to 30s) before launching the VM. This eliminates the VMware networking race where the VM boots before the virtual network is ready.
+`hermes-sift-vm.service` has an `ExecStartPre` that polls vmnet8 for `<SIFT-VM-SUBNET>` (up to 30s) before launching the VM. This eliminates the VMware networking race where the VM boots before the virtual network is ready.
 
 Manual recovery if the service fails:
 ```bash
-vmrun -T ws start /home/niel/vmware/SIFT/SIFT.vmx nogui
+vmrun -T ws start /home/user/vmware/SIFT/SIFT.vmx nogui
 # Wait 25–45 seconds for SSH to come up
 ```
 
@@ -52,7 +52,7 @@ ethernet0.connectionType = "nat"
 
 # In /etc/vmware/vmnet8/nat/nat.conf:
 [incomingtcp]
-2222 = 172.16.146.128:22
+2222 = <SIFT-VM-IP>:22
 
 # Restart VMware networking:
 sudo vmware-networks --stop && sudo vmware-networks --start
@@ -91,7 +91,7 @@ Any non-down state is active.
 
 The pentest profile needs its own `.env` with provider API keys. Without it:
 ```
-ERROR: Provider 'deepseek' has no API key.
+ERROR: Provider '&lt;your-provider&gt;' has no API key.
 ```
 
 **Fix:**
@@ -145,13 +145,13 @@ Transport endpoint is not connected
 
 **Fix:**
 ```bash
-fusermount -u /home/niel/forensics/mounts/mem
-rm -rf /home/niel/forensics/mounts/mem
-mkdir -p /home/niel/forensics/mounts/mem
+fusermount -u /home/user/forensics/mounts/mem
+rm -rf /home/user/forensics/mounts/mem
+mkdir -p /home/user/forensics/mounts/mem
 # Then re-mount
 ```
 
-Mount point must be user-writable (`/home/niel/forensics/mounts/`), not `/mnt`.
+Mount point must be user-writable (`/home/user/forensics/mounts/`), not `/mnt`.
 
 ---
 
@@ -165,7 +165,7 @@ Proven through review of all automation scripts:
 
 3. **`sudo -n` for non-interactive automation.** If passwordless sudo isn't configured, the script fails fast with a clear message instead of hanging on a password prompt.
 
-4. **Glob-based cleanup, not hardcoded paths.** Instead of `/mnt/mem`, glob `/home/niel/forensics/mounts/*/` to catch any mount point.
+4. **Glob-based cleanup, not hardcoded paths.** Instead of `/mnt/mem`, glob `/home/user/forensics/mounts/*/` to catch any mount point.
 
 ---
 

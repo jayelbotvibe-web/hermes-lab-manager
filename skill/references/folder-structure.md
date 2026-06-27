@@ -2,7 +2,7 @@
 
 Post-reorganization. Ponytail-pruned. No duplication between repo and vault.
 
-## Forensics (`/home/niel/forensics/`)
+## Forensics (`/home/user/forensics/`)
 
 ```
 forensics/
@@ -33,11 +33,11 @@ forensics/
 
 Rules:
 - Reports live in case directories, NOT in root `reports/`
-- Evidence paths: ALWAYS absolute (`/home/niel/forensics/...`)
+- Evidence paths: ALWAYS absolute (`/home/user/forensics/...`)
 - HOME is sandboxed in profiles → `~/forensics/` resolves wrong
 - LUKS vault: `forensics.img` (30GB) with `noauto` crypttab using `.forensics-keyfile`
 
-## Pentest Vault (`/home/niel/pentest/` — LUKS encrypted)
+## Pentest Vault (`/home/user/pentest/` — LUKS encrypted)
 
 ```
 pentest/
@@ -70,7 +70,7 @@ Rules:
 - `learning/` + `methodology/` merged into `reference/`
 - `venv/` moved to `pentest-repo/venv/` (doesn't need LUKS encryption)
 
-## Pentest Repo (`/home/niel/pentest-repo/` — git versioned)
+## Pentest Repo (`/home/user/pentest-repo/` — git versioned)
 
 ```
 pentest-repo/

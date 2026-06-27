@@ -165,7 +165,7 @@ The skill enforces the routing rule: default profile never runs lab tools. Copy 
 ```bash
 cat > ~/.hermes/scripts/check-labs << 'EOF'
 #!/bin/bash
-set -e
+set -uo pipefail  # no set -e — see PITFALLS.md DESIGN: Script coding patterns
 echo "=== PENTEST ==="
 bash /home/$USER/pentest-repo/scripts/pentest-canary.sh 2>&1 | tail -3
 echo ""

@@ -2,8 +2,12 @@
 
 > **Multi-profile AI orchestration for digital forensics & penetration testing** — two labs, one Linux machine, zero context pollution.
 
+### Why This Exists
+
+Running two separate terminal windows — one for forensics, one for pentesting — gives you tools but not context. Each Hermes profile carries its own SOUL (persona), skills, memory, and model config. The forensics profile thinks like a DFIR analyst. The pentest profile thinks like a red teamer. They don't share conversational state, don't load each other's tools, and can't access each other's encrypted vaults. The manager bridges them through one conversation surface.
+
 [![Pages](https://img.shields.io/badge/docs-github%20pages-22d3ee)](https://jayelbotvibe-web.github.io/hermes-lab-manager/)
-[![Hermes Agent](https://img.shields.io/badge/Hermes%20Agent-v0.17.0-34d399)](https://github.com/NousResearch/hermes-agent)
+[![Hermes Agent](https://img.shields.io/badge/Hermes%20Agent-latest-34d399)](https://github.com/NousResearch/hermes-agent)
 [![Profiles](https://img.shields.io/badge/profiles-3-blue)](#profile-system)
 [![Canary](https://img.shields.io/badge/canary-18/18-brightgreen)](#health-check)
 
@@ -75,9 +79,9 @@ USER (single conversation surface)
 | CPU | Intel i7-11800H (8C/16T) |
 | RAM | 30 GB |
 | Storage | 468 GB NVMe SSD |
-| OS | Ubuntu 26.04 (kernel 7.0) |
+| OS | Ubuntu 24.04+ |
 | Hermes | v0.17.0 |
-| Docker | 29.1.3 |
+| Docker | latest stable |
 | VMware | Workstation 17.x |
 
 ---
@@ -91,9 +95,9 @@ USER (single conversation surface)
 | Docker (host) | volatility3 2.7.0, plaso 20240512, analyzeMFT 1.2.0.0, MemProcFS 5.17+ |
 | SIFT VM (SSH) | Sleuth Kit, TShark, RegRipper, foremost, dc3dd, hashdeep, photorec, ddrescue |
 
-**SIFT VM:** VMware NAT (vmnet8), static IP `172.16.146.128`. Bridged WiFi causes DHCP drift — NAT is the fix.
+**SIFT VM:** VMware NAT (vmnet8), static IP `<SIFT-VM-IP>`. Bridged WiFi causes DHCP drift — NAT is the fix.
 
-**Bring-up:** `bash /home/niel/forensics/scripts/forensics-up.sh` — LUKS → SIFT VM → Docker → canary (~60s).
+**Bring-up:** `bash /home/user/forensics/scripts/forensics-up.sh` — LUKS → SIFT VM → Docker → canary (~60s).
 
 **Reports:** Two templates — `data-first-report.html` (white+ink, 01–10 sections, finding cards, client-ready) and `timeline-report.html` (dark theme, visual swimlane). Generated from structured JSON.
 
@@ -112,7 +116,7 @@ USER (single conversation surface)
 | `osint-tools` | OSINT (theHarvester, amass, subfinder) |
 | `neo4j` | BloodHound graph database |
 
-**VPN:** WireGuard → ProtonVPN. Detection pitfall: `operstate` is `"unknown"`, not `"up"` — check `!= "down"`.
+**VPN:** WireGuard → <VPN-provider>. Detection pitfall: `operstate` is `"unknown"`, not `"up"` — check `!= "down"`.
 
 **Reports:** Dark gradient cover · 4-category scorecards · findings heatmap · A4 print-native.
 
@@ -138,8 +142,8 @@ Profiles sandbox `$HOME` — always use absolute paths.
 
 | Vault | File | Size | Mount | Purpose |
 |-------|------|------|-------|---------|
-| Forensics | `/home/niel/forensics.img` | 30 GB | `/home/niel/forensics/` | Cases, scripts, templates, evidence |
-| Pentest | `/home/niel/pentest-vault.img` | 10 GB | `/home/niel/pentest/` | Engagements, keys, wordlists, Docker volumes |
+| Forensics | `/home/user/forensics.img` | 30 GB | `/home/user/forensics/` | Cases, scripts, templates, evidence |
+| Pentest | `/home/user/pentest-vault.img` | 10 GB | `/home/user/pentest/` | Engagements, keys, wordlists, Docker volumes |
 
 Forensics vault uses `noauto` in `/etc/crypttab` — only mounts via `forensics-up.sh`. When locked, templates and scripts are **structurally unreachable** (ENOENT). This is the enforcement mechanism — the default profile cannot touch what isn't on the filesystem.
 
@@ -163,7 +167,7 @@ hermes -z "Run full pentest engagement against example.com..." --profile pentest
 ## Health Check
 
 ```bash
-bash /home/niel/.hermes/scripts/check-labs
+bash /home/user/.hermes/scripts/check-labs
 ```
 
 One command, both canaries. Forensics: 18 checks across 3 runtimes. Pentest: 14 checks. Degraded tools marked for triage-only.
@@ -178,11 +182,11 @@ One command, both canaries. Forensics: 18 checks across 3 runtimes. Pentest: 14 
 | `~/.hermes/profiles/pentest/` | Pentest profile | None |
 | `~/.hermes/scripts/check-labs` | Health check | None |
 | `~/.hermes/skills/devops/lab-manager/` | Manager skill | None |
-| `/home/niel/forensics/` | LUKS mount — all forensics | Keyfile |
-| `/home/niel/forensics/templates/` | Report templates | Vault mount |
-| `/home/niel/forensics/scripts/` | Automation scripts | Vault mount |
-| `/home/niel/pentest/` | LUKS mount — all pentest | Keyfile |
-| `/home/niel/pentest-repo/` | Git-tracked scripts/skills | None |
+| `/home/user/forensics/` | LUKS mount — all forensics | Keyfile |
+| `/home/user/forensics/templates/` | Report templates | Vault mount |
+| `/home/user/forensics/scripts/` | Automation scripts | Vault mount |
+| `/home/user/pentest/` | LUKS mount — all pentest | Keyfile |
+| `/home/user/pentest-repo/` | Git-tracked scripts/skills | None |
 
 ---
 
