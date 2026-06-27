@@ -168,7 +168,6 @@
   <a href="#dispatch">Dispatch</a>
   <a href="#health">Health</a>
   <a href="#layout">Layout</a>
-  <a href="#pitfalls">Pitfalls</a>
   <a href="#replicate">Replicate</a>
 </nav>
 
@@ -552,104 +551,6 @@ hermes -z "Run the pentest canary and report pass/fail." --profile pentest</pre>
     <tr><td><code>/home/user/hermes-forensics-lab/</code></td><td>Public repo — README, sample reports, docs</td><td>None</td></tr>
     <tr><td><code>/home/user/hermes-lab-dashboard/</code></td><td>Public repo — boot flow, tray launcher, architecture diagram</td><td>None</td></tr>
   </table>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════ -->
-<div class="section" id="pitfalls">
-  <h3>Pitfall Registry</h3>
-
-  <p style="font-size:10px;color:var(--faint);margin-bottom:14px">
-    Proven through real failures. Tagged: <span class="tag tag-bug">BUG</span> = active footgun ·
-    <span class="tag tag-fix">FIX</span> = resolved with workaround ·
-    <span class="tag tag-design">DESIGN</span> = architectural decision
-  </p>
-
-  <div style="margin-bottom:10px">
-    <span class="tag tag-bug">BUG</span>
-    <strong>SSH + HOME sandboxing:</strong> Profiles sandbox <code>$HOME</code> to <code>~/.hermes/profiles/&lt;name&gt;/home</code>.
-    SSH identity paths MUST be absolute: <code>-i /home/user/.ssh/id_rsa</code>.
-    The <code>sift-exec.sh</code> wrapper handles this automatically.
-  </div>
-
-  <div style="margin-bottom:10px">
-    <span class="tag tag-bug">BUG</span>
-    <strong>ConnectTimeout:</strong> Use 10 seconds for SSH to SIFT VM.
-    3 seconds causes intermittent failures after Docker commands (system briefly busy).
-  </div>
-
-  <div style="margin-bottom:10px">
-    <span class="tag tag-fix">FIX</span>
-    <strong>SIFT VM cold boot:</strong> <code>hermes-sift-vm.service</code> polls vmnet8 for <SIFT-VM-SUBNET>
-    (up to 30s) before launching the VM. Manual recovery: <code>vmrun -T ws start ~/vmware/SIFT/SIFT.vmx nogui</code>
-    (wait 25–45s for SSH).
-  </div>
-
-  <div style="margin-bottom:10px">
-    <span class="tag tag-fix">FIX</span>
-    <strong>SIFT VM MUST use NAT, not bridged, on WiFi:</strong> Bridged networking over WiFi is unreliable —
-    DHCP leases expire, APs drop VM MAC addresses. Fix: NAT (vmnet8) with static IP <SIFT-VM-IP> +
-    port forward 2222→22 in <code>/etc/vmware/vmnet8/nat/nat.conf</code>.
-  </div>
-
-  <div style="margin-bottom:10px">
-    <span class="tag tag-fix">FIX</span>
-    <strong>Foreground timeout (600s):</strong> Full engagements take 8–12 min. Always use background dispatch
-    with <code>notify_on_complete=true</code> for multi-phase workflows.
-  </div>
-
-  <div style="margin-bottom:10px">
-    <span class="tag tag-bug">BUG</span>
-    <strong>WireGuard VPN detection:</strong> <code>/sys/class/net/wg0/operstate</code> reports
-    <code>"unknown"</code>, not <code>"up"</code>. Check <code>!= "down"</code> — any non-down state is active.
-  </div>
-
-  <div style="margin-bottom:10px">
-    <span class="tag tag-bug">BUG</span>
-    <strong>Pentest .env required:</strong> Must exist at <code>~/.hermes/profiles/pentest/.env</code>.
-    Without it: <code>"Provider 'deepseek' has no API key."</code>
-  </div>
-
-  <div style="margin-bottom:10px">
-    <span class="tag tag-bug">BUG</span>
-    <strong>Docker entrypoints:</strong>
-    <code>forensics-volatility3:2.7.0</code> — entrypoint IS the vol3 binary (no <code>vol</code> prefix).
-    <code>forensics-mft-tools:1.2.0.0</code> — entrypoint is bash, use <code>--entrypoint python3</code>.
-  </div>
-
-  <div style="margin-bottom:10px">
-    <span class="tag tag-bug">BUG</span>
-    <strong><code>command -v</code>, not <code>which</code>:</strong> Use <code>command -v</code> in canaries.
-    RegRipper is at <code>/usr/lib/regripper/rip.pl</code> (not on PATH) — check with full path.
-  </div>
-
-  <div style="margin-bottom:10px">
-    <span class="tag tag-fix">FIX</span>
-    <strong>7zip for AES-encrypted ZIPs:</strong> Standard <code>unzip</code> fails on compression method 99
-    (AES). Install <code>p7zip-full</code>. Binary is <code>7z</code>, not <code>7zz</code>.
-    Command: <code>7z x -pPASSWORD -y file.zip</code>.
-  </div>
-
-  <div style="margin-bottom:10px">
-    <span class="tag tag-fix">FIX</span>
-    <strong>MemProcFS mount resilience:</strong> Large dumps (>4GB) take 60–120s to initialize.
-    Stale FUSE mounts → <code>fusermount -u &lt;path&gt;</code>, remove dir, recreate.
-    Mount point must be user-writable (<code>/home/user/forensics/mounts/</code>, not <code>/mnt</code>).
-  </div>
-
-  <div style="margin-bottom:10px">
-    <span class="tag tag-design">DESIGN</span>
-    <strong>Script coding patterns:</strong> No <code>set -e</code> in bring-up/shutdown scripts
-    (report degradation, never abort). Use <code>sudo -n</code> for non-interactive automation.
-    Print metadata to stderr, values to stdout for <code>$(...)</code> capture.
-  </div>
-
-  <div style="margin-bottom:10px">
-    <span class="tag tag-design">DESIGN</span>
-    <strong>Ponytail minimalism:</strong> Forensics lab: 3 core scripts + 1 data file. Everything else
-    (case creation, evidence registration, IOC scanning, report generation) is handled by the forensics
-    profile's skills through agent reasoning. Scripts are only for the deterministic, repetitive,
-    footgun-prone bits.
-  </div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
