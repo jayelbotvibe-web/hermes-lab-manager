@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes Lab Manager</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'JetBrains Mono', 'DejaVu Sans Mono', monospace;
+    background: #020617;
+    color: #e2e8f0;
+    min-height: 100vh;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .container { max-width: 860px; margin: 0 auto; padding: 40px 24px 60px; }
+
+  header { margin-bottom: 40px; border-bottom: 1px solid #1e293b; padding-bottom: 24px; }
+  header h1 { font-size: 18px; color: #22d3ee; font-weight: 700; letter-spacing: -0.3px; }
+  header .sub { font-size: 11px; color: #64748b; margin-top: 6px; }
+
+  .rule {
+    background: rgba(220,38,38,0.08);
+    border: 1px solid rgba(220,38,38,0.25);
+    border-left: 4px solid #dc2626;
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 32px;
+  }
+  .rule h2 { font-size: 13px; color: #fca5a5; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+  .rule p { font-size: 13px; color: #fecaca; }
+  .rule code { background: rgba(220,38,38,0.15); padding: 2px 6px; border-radius: 3px; font-size: 12px; }
+  .rule ul { margin: 12px 0 0 20px; color: #fca5a5; font-size: 12px; }
+  .rule ul li { margin-bottom: 4px; }
+
+  .section { margin-bottom: 36px; }
+  .section h3 {
+    font-size: 11px; color: #22d3ee; text-transform: uppercase;
+    letter-spacing: 2px; margin-bottom: 14px; padding-bottom: 8px;
+    border-bottom: 1px solid #1e293b;
+  }
+  .section h4 { font-size: 12px; color: #e2e8f0; margin: 16px 0 8px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { text-align: left; color: #64748b; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; padding: 8px 12px; border-bottom: 1px solid #1e293b; }
+  td { padding: 8px 12px; border-bottom: 1px solid #0f172a; vertical-align: top; }
+  td code { background: #0f172a; padding: 2px 6px; border-radius: 3px; font-size: 11px; color: #22d3ee; }
+
+  .cmd { background: #0f172a; border: 1px solid #1e293b; border-radius: 6px; padding: 16px 20px; margin: 10px 0; overflow-x: auto; }
+  .cmd pre { font-size: 12px; color: #34d399; white-space: pre-wrap; }
+
+  .note { background: rgba(34,211,238,0.06); border: 1px solid rgba(34,211,238,0.15); border-radius: 6px; padding: 12px 16px; font-size: 12px; color: #94a3b8; }
+  .warn { background: rgba(234,179,8,0.08); border: 1px solid rgba(234,179,8,0.2); border-left: 3px solid #eab308; border-radius: 6px; padding: 12px 16px; font-size: 12px; color: #fde68a; margin: 10px 0; }
+
+  .pitfall { margin-bottom: 12px; }
+  .pitfall .tag { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 3px; margin-right: 8px; font-weight: 600; }
+  .tag-fix { background: rgba(34,211,238,0.12); color: #22d3ee; }
+  .tag-bug { background: rgba(220,38,38,0.12); color: #fca5a5; }
+
+  footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #1e293b; font-size: 10px; color: #475569; }
+  footer a { color: #64748b; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>Hermes Lab Manager</h1>
+  <div class="sub">Routing rules · Dispatch patterns · Vault enforcement · Pitfall registry</div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="rule">
+  <h2>HARD ROUTING RULE</h2>
+  <p>The default profile <strong>never</strong> runs lab tools, starts containers, or checks targets.</p>
+  <ul>
+    <li>All pentest work → <code>hermes -z --profile pentest</code></li>
+    <li>All forensics work → <code>hermes -z --profile forensics</code></li>
+    <li>Report generation, template rendering, case management → forensics profile only</li>
+  </ul>
+  <p style="margin-top:14px">If dispatch times out or fails: <strong>report the failure to the user</strong>. Do not fall back to direct execution.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <h3>Vault Enforcement (structural — not memory-based)</h3>
+  <p style="font-size:12px;color:#94a3b8">
+    Forensics templates, scripts, and tooling live under <code>/home/niel/forensics/</code> — a LUKS-encrypted mount.
+    When the vault is locked, these files do not exist on the filesystem.
+    The default profile literally cannot read what isn't there.
+    The forensics profile mounts the vault via <code>forensics-up.sh</code> as part of its bring-up sequence.
+  </p>
+  <div class="note" style="margin-top:12px">
+    <strong>Design:</strong> Path-level guard, not a policy reminder. Enforcement by ENOENT, not by memory.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <h3>Dispatch Patterns</h3>
+
+  <h4>Lightweight dispatch (~60s)</h4>
+  <div class="cmd"><pre>hermes -z "Run canary and report pass/fail." --profile forensics</pre></div>
+
+  <h4>Full engagement (8–12 min — MUST use background)</h4>
+  <div class="warn">Foreground <code>hermes -z</code> has a 600s hard limit. Full engagements WILL time out.</div>
+  <div class="cmd"><pre># In terminal tool: background=true, notify_on_complete=true
+hermes -z "Run full pentest engagement against example.com..." --profile pentest</pre></div>
+
+  <h4>Prompt construction checklist</h4>
+  <table>
+    <tr><th>Element</th><th>Example</th></tr>
+    <tr><td>Target / path</td><td><code>/home/niel/Downloads/dump.mem</code> (absolute — profiles sandbox $HOME)</td></tr>
+    <tr><td>Scope</td><td><code>Scope: example.com and *.example.com</code></td></tr>
+    <tr><td>Canary first</td><td><code>Run canary first, report degraded tools</code></td></tr>
+    <tr><td>Output request</td><td><code>Report the PDF path when done</code></td></tr>
+    <tr><td>Brevity</td><td>Keep it short — worker profile skills fill in the workflow</td></tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <h3>Health Check</h3>
+  <div class="cmd"><pre>bash /home/niel/.hermes/scripts/check-labs</pre></div>
+  <p style="font-size:11px;color:#64748b;margin-top:8px">One command, both canaries. Reports pass/fail per runtime. Degraded tools are marked for triage-only.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <h3>Folder Structure</h3>
+  <table>
+    <tr><th>Path</th><th>What</th><th>Gate</th></tr>
+    <tr><td><code>/home/niel/forensics/</code></td><td>LUKS mount — cases, scripts, templates, tool catalog</td><td>LUKS keyfile</td></tr>
+    <tr><td><code>/home/niel/forensics/cases/INC-YYYY-MMDD-NNNN/</code></td><td>Per-case: evidence, raw/, reports/, findings.json, audit/</td><td>Vault mount</td></tr>
+    <tr><td><code>/home/niel/forensics/templates/</code></td><td>Report templates (data-first + timeline)</td><td>Vault mount</td></tr>
+    <tr><td><code>/home/niel/forensics/scripts/</code></td><td>Automation scripts (canary, sift-exec, report, vol3, etc.)</td><td>Vault mount</td></tr>
+    <tr><td><code>/home/niel/pentest/</code></td><td>LUKS mount — engagements, keys, wordlists, Docker volumes</td><td>LUKS keyfile</td></tr>
+    <tr><td><code>/home/niel/pentest-repo/</code></td><td>Scripts and skills (outside vault — git-tracked)</td><td>None</td></tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <h3>Pitfall Registry</h3>
+
+  <div class="pitfall">
+    <span class="tag tag-bug">BUG</span>
+    <strong>SSH + HOME sandboxing:</strong> Profiles sandbox $HOME. Always use absolute identity path <code>-i /home/niel/.ssh/id_rsa</code>. Never <code>~/</code> — tilde resolves to profile sandbox.
+  </div>
+
+  <div class="pitfall">
+    <span class="tag tag-bug">BUG</span>
+    <strong>ConnectTimeout:</strong> Use 10s for SSH to SIFT VM (172.16.146.128 vmnet8 NAT). 3s causes intermittent failures.
+  </div>
+
+  <div class="pitfall">
+    <span class="tag tag-fix">FIX</span>
+    <strong>SIFT VM cold boot:</strong> <code>hermes-sift-vm.service</code> polls vmnet8 for 172.16.146.x before launching VM. Manual: <code>vmrun -T ws start ~/vmware/SIFT/SIFT.vmx nogui</code> (25–45s for SSH).
+  </div>
+
+  <div class="pitfall">
+    <span class="tag tag-fix">FIX</span>
+    <strong>Foreground timeout:</strong> 600s hard limit on <code>hermes -z</code>. Always use background dispatch with <code>notify_on_complete=true</code> for full engagements.
+  </div>
+
+  <div class="pitfall">
+    <span class="tag tag-bug">BUG</span>
+    <strong>WireGuard VPN detection:</strong> <code>/sys/class/net/wg0/operstate</code> is <code>"unknown"</code>, not <code>"up"</code>. Check <code>!= "down"</code>.
+  </div>
+
+  <div class="pitfall">
+    <span class="tag tag-bug">BUG</span>
+    <strong>Pentest .env:</strong> Must exist at <code>~/.hermes/profiles/pentest/.env</code> or dispatch fails with "Provider has no API key."
+  </div>
+
+  <div class="pitfall">
+    <span class="tag tag-bug">BUG</span>
+    <strong>Docker entrypoints:</strong> <code>forensics-volatility3:2.7.0</code> entrypoint IS the vol3 binary — no <code>vol</code> prefix. <code>forensics-mft-tools</code> entrypoint is bash — use <code>--entrypoint python3</code>.
+  </div>
+
+  <div class="pitfall">
+    <span class="tag tag-bug">BUG</span>
+    <strong>command -v, not which:</strong> Use <code>command -v</code> in canaries. RegRipper is at <code>/usr/lib/regripper/rip.pl</code> (not on PATH) — check with full path.
+  </div>
+
+  <div class="pitfall">
+    <span class="tag tag-fix">FIX</span>
+    <strong>7zip for AES-encrypted ZIPs:</strong> Standard <code>unzip</code> fails on compression method 99. Install <code>p7zip-full</code>. Binary is <code>7z</code>, not <code>7zz</code>.
+  </div>
+
+  <div class="pitfall">
+    <span class="tag tag-fix">FIX</span>
+    <strong>MemProcFS stale mounts:</strong> Large dumps need 60–120s init. Stale FUSE mounts → <code>fusermount -u &lt;path&gt;</code>, remove dir, recreate. Mount point must be user-writable.
+  </div>
+
+  <div class="pitfall">
+    <span class="tag tag-fix">FIX</span>
+    <strong>Script coding patterns:</strong> No <code>set -e</code> in bring-up/shutdown scripts. Use <code>sudo -n</code> for non-interactive. Print metadata to stderr, values to stdout for <code>$(...)</code> capture.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <h3>Files That Matter</h3>
+  <table>
+    <tr><th>File</th><th>Why</th></tr>
+    <tr><td><code>~/.hermes/scripts/check-labs</code></td><td>One command, both canaries</td></tr>
+    <tr><td><code>/home/niel/forensics/scripts/session-canary.sh</code></td><td>18 checks, 3 runtimes</td></tr>
+    <tr><td><code>/home/niel/forensics/scripts/sift-exec.sh</code></td><td>SSH footgun prevention</td></tr>
+    <tr><td><code>/home/niel/forensics/scripts/forensics-up.sh</code></td><td>LUKS open → SIFT VM → Docker → canary</td></tr>
+    <tr><td><code>/home/niel/forensics/scripts/forensics-down.sh</code></td><td>Graceful shutdown → lock LUKS</td></tr>
+    <tr><td><code>/home/niel/forensics/scripts/forensics-report.sh</code></td><td>HTML + PDF from case JSON (both templates)</td></tr>
+    <tr><td><code>/home/niel/forensics/templates/</code></td><td>data-first-report.html + timeline-report.html</td></tr>
+    <tr><td><code>/home/niel/forensics/tools/tool-catalog.yaml</code></td><td>Tool versions, entrypoints, pitfalls</td></tr>
+    <tr><td><code>/home/niel/pentest-repo/scripts/pentest-canary.sh</code></td><td>14 checks</td></tr>
+    <tr><td><code>/home/niel/pentest-repo/scripts/pentest-up.sh</code></td><td>Container startup + VPN</td></tr>
+  </table>
+</div>
+
+<footer>
+  <a href="https://github.com/jayelbotvibe-web/hermes-lab-manager">hermes-lab-manager</a>
+  &nbsp;·&nbsp; part of the Hermes Agent lab ecosystem
+  &nbsp;·&nbsp; <a href="https://github.com/jayelbotvibe-web/hermes-forensics-lab">forensics lab</a>
+  &nbsp;·&nbsp; <a href="https://github.com/jayelbotvibe-web/hermes-pentest-lab">pentest lab</a>
+</footer>
+
+</div>
+</body>
+</html>
