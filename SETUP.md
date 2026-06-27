@@ -156,7 +156,7 @@ mkdir -p ~/.hermes/skills/devops/lab-manager
 # Or create from the template below
 ```
 
-The skill enforces the routing rule: default profile never runs lab tools. See the [lab-manager skill](skill/SKILL.md) for the full content.
+The skill enforces the routing rule: default profile never runs lab tools. Copy `skill/SKILL.md` to `~/.hermes/skills/devops/lab-manager/SKILL.md`.
 
 ---
 
