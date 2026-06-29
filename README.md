@@ -47,7 +47,7 @@ hermes -z "<self-contained prompt>" --profile pentest     # Pentesting
 
 ## Architecture
 
-![Hermes Lab Manager Architecture](architecture.svg)
+![Hermes Lab Manager Architecture](architecture.png)
 
 **Pattern:** Supervisor (Orchestrator-Worker) — one of four proven multi-agent patterns. Each `hermes -z` boots the profile fresh. No conversational state carries between dispatches.
 
