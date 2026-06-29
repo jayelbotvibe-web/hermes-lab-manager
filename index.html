@@ -81,32 +81,8 @@
   .cmd pre { font-size: 11.5px; color: var(--green); white-space: pre-wrap; line-height: 1.6; }
 
   /* Architecture diagram */
-  .arch {
-    display: grid; grid-template-columns: 200px 1fr; gap: 0;
-    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-    overflow: hidden; margin: 16px 0 24px;
-  }
-  .arch-user {
-    grid-column: 1 / -1; padding: 14px 20px; text-align: center;
-    background: rgba(34,211,238,0.06); border-bottom: 1px solid var(--border);
-    font-size: 12px; font-weight: 600;
-  }
-  .arch-mgr {
-    padding: 20px; border-right: 1px solid var(--border);
-    background: rgba(34,211,238,0.03); font-size: 10px;
-  }
-  .arch-workers {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
-  }
-  .arch-worker {
-    padding: 20px; font-size: 10px;
-  }
-  .arch-worker:first-child { border-right: 1px solid var(--border); }
-  .arch-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--faint); margin-bottom: 4px; }
-  .arch-name { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
-  .arch-name.f { color: var(--cyan); } .arch-name.p { color: var(--green); }
-  .arch-list { list-style: none; color: var(--muted); font-size: 10px; }
-  .arch-list li { margin-bottom: 2px; }
+  .arch-diagram { margin: 20px 0 28px; text-align: center; }
+  .arch-diagram img { max-width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--border); background: #020617; }
 
   /* Pitfall tags */
   .tag { display: inline-block; font-size: 9px; padding: 2px 7px; border-radius: 3px; margin-right: 6px; font-weight: 600; text-transform: uppercase; }
@@ -135,10 +111,6 @@
 
   @media (max-width: 768px) {
     .container { padding: 24px 12px; }
-    .arch { grid-template-columns: 1fr; }
-    .arch-mgr { border-right: none; border-bottom: 1px solid var(--border); }
-    .arch-workers { grid-template-columns: 1fr; }
-    .arch-worker:first-child { border-right: none; border-bottom: 1px solid var(--border); }
     .specs { grid-template-columns: repeat(2, 1fr); }
     table { font-size: 10px; }
     th, td { padding: 6px 8px; }
@@ -198,6 +170,11 @@
 === FORENSICS ===
 === Results: 18 passed, 0 failed ===
 ✓ All runtimes operational — ready for investigation</pre></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="arch-diagram">
+  <img src="architecture.svg" alt="Hermes Lab Manager Architecture — Supervisor-Worker pattern">
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
