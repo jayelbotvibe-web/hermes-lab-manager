@@ -10,7 +10,7 @@ Running two separate terminal windows — one for forensics, one for pentesting 
 [![View HTML](https://img.shields.io/badge/view-HTML%20reference-22d3ee)](https://htmlpreview.github.io/?https://github.com/jayelbotvibe-web/hermes-lab-manager/blob/main/index.html)
 [![Hermes Agent](https://img.shields.io/badge/Hermes%20Agent-latest-34d399)](https://github.com/NousResearch/hermes-agent)
 [![Profiles](https://img.shields.io/badge/profiles-3-blue)](#profile-system)
-[![Canary](https://img.shields.io/badge/canary-18/18-brightgreen)](#health-check)
+[![Canary](https://img.shields.io/badge/canary-20/20-brightgreen)](#health-check)
 
 ---
 
@@ -69,7 +69,7 @@ hermes -z "<self-contained prompt>" --profile pentest     # Pentesting
 
 ## Forensics Lab
 
-**12 tools across 3 runtimes** — validated by 18-check canary on every session start.
+**12 tools across 3 runtimes** — validated by 20-check canary on every session start.
 
 | Runtime | Tools |
 |---------|-------|

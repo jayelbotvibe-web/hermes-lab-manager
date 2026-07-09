@@ -175,7 +175,7 @@ Forensics lab: **3 core scripts + 1 data file.** Everything else (case creation,
 
 | File | Lines | Why it exists |
 |------|-------|---------------|
-| `session-canary.sh` | 126 | Validates all tools — deterministic, the agent can't validate itself |
+| `session-canary.sh` | 158 | Validates all tools — deterministic, the agent can't validate itself |
 | `sift-exec.sh` | 24 | SSH wrapper — prevents HOME-sandbox key-path footgun |
 | `down.sh` | 40 | Cleanup — prevents stale mounts, running VMs, FUSE leftovers |
 | `tool-catalog.yaml` | 120 | Data — single source of truth for versions, entrypoints, pitfalls |
