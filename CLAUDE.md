@@ -46,12 +46,17 @@ real values. **Never copy specifics from those repos into this one.**
 
 ## Known inconsistencies — verify before repeating
 
-- **Canary count contradicts itself.** README badge and header say 20 checks (commit
-  `6345058`, "18→20"), but the README "Health Check" section and `skill/SKILL.md` still say
-  **18**. Check the live canary rather than trusting either.
-- **A stale link:** the README "Related Repos" table and `index.html:643` point at
-  `hermes-lab-dashboard`, which was renamed to `hermes-lab-management-dashboard` on
-  2026-07-09. Those URLs are dead.
+- **Canary count — RESOLVED.** The authoritative source is
+  `hermes-forensics-lab/project-metadata.yaml` (`canary_checks: 20 # 12 tools + 8 env`),
+  confirmed by counting `_TOTAL` increments in `session-canary.sh`. All docs here now say
+  **20 (12 tools + 8 env)**; the earlier "18" values were stale (predated commit `6345058`'s
+  18→20 bump, which only touched the README badge/header).
+- **Stale dashboard link — RESOLVED.** README, `index.html`, and `SETUP.md` now point at
+  `hermes-lab-management-dashboard` (renamed from `hermes-lab-dashboard` on 2026-07-09).
+- **Sanitization leak in SETUP.md — RESOLVED.** The privacy scrub (`1354838`) had missed
+  `SETUP.md`: it hardcoded the real SIFT VM IP and a real username. Now scrubbed to
+  `<SIFT-VM-IP>` / `/home/user/`, consistent with the rest of the repo. If touching SETUP.md,
+  keep it placeholder-only.
 - Commit `20153f5` claims to add a CI workflow, but there is **no `.github/` directory** —
   it never landed or was removed.
 

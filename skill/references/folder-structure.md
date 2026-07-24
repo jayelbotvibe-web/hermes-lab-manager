@@ -19,7 +19,7 @@ forensics/
 ├── logs/                      ← session and tool logs
 ├── mounts/mem/                ← MemProcFS FUSE mount point
 ├── scripts/
-│   ├── session-canary.sh      ← 18 checks, 3 runtimes
+│   ├── session-canary.sh      ← 20 checks (12 tools + 8 env), 3 runtimes
 │   ├── sift-exec.sh           ← SSH wrapper (key-path-safe)
 │   └── down.sh                ← cleanup (LUKS, VM, FUSE)
 ├── tools/

@@ -151,7 +151,7 @@ hermes -z "Run full pentest engagement against example.com..." --profile pentest
 bash /home/user/.hermes/scripts/check-labs
 ```
 
-One command, both canaries. Forensics: 18 checks across 3 runtimes. Pentest: 14 checks. Degraded tools marked for triage-only.
+One command, both canaries. Forensics: 20 checks (12 tools + 8 env) across 3 runtimes. Pentest: 14 checks. Degraded tools marked for triage-only.
 
 ---
 
@@ -177,7 +177,7 @@ One command, both canaries. Forensics: 18 checks across 3 runtimes. Pentest: 14 
 |------|---------|
 | [hermes-forensics-lab](https://github.com/jayelbotvibe-web/hermes-forensics-lab) | Forensics worker — Docker tools, SIFT VM, MemProcFS, reports |
 | [hermes-pentest-lab](https://github.com/jayelbotvibe-web/hermes-pentest-lab) | Pentest worker — Docker containers, VPN, reports |
-| [hermes-lab-dashboard](https://github.com/jayelbotvibe-web/hermes-lab-dashboard) | Boot flow, tray launcher, architecture diagram |
+| [hermes-lab-management-dashboard](https://github.com/jayelbotvibe-web/hermes-lab-management-dashboard) | Boot flow, tray launcher, architecture diagram |
 | [Hermes Agent](https://github.com/NousResearch/hermes-agent) | The AI agent framework this all runs on |
 | [SETUP.md](SETUP.md) | 10-step replication guide — bare metal to working dispatch |
 | [PITFALLS.md](PITFALLS.md) | 13 proven pitfalls — BUG/FIX/DESIGN registry |

@@ -159,7 +159,7 @@
 <div class="section" id="demo">
   <h3>Quick Demo</h3>
   <p style="font-size:11px;color:var(--muted);margin-bottom:12px">
-    One command checks both labs. Forensics: 18 tools across 3 runtimes. Pentest: 14 services including Docker containers, WireGuard VPN, and LUKS vault.
+    One command checks both labs. Forensics: 20 checks (12 tools + 8 env) across 3 runtimes. Pentest: 14 services including Docker containers, WireGuard VPN, and LUKS vault.
   </p>
   <div class="cmd"><pre>$ bash check-labs
 
@@ -168,7 +168,7 @@
 ✓ All services operational — ready for engagement
 
 === FORENSICS ===
-=== Results: 18 passed, 0 failed ===
+=== Results: 20 passed, 0 failed ===
 ✓ All runtimes operational — ready for investigation</pre></div>
 </div>
 
@@ -302,7 +302,7 @@ sudo mount /dev/mapper/forensics_crypt /home/user/forensics</pre></div>
 <div class="section" id="forensics">
   <h3>Forensics Lab</h3>
 
-  <h4>Tool Inventory — 3 Runtimes, 18 Checks</h4>
+  <h4>Tool Inventory — 3 Runtimes, 20 Checks (12 tools + 8 env)</h4>
   <table>
     <tr><th>Runtime</th><th>Tool</th><th>Version</th><th>Access</th></tr>
     <tr><td>Docker (host)</td><td>volatility3</td><td><code>2.7.0</code></td><td><code>forensics-vol3.sh CASE plugin</code></td></tr>
@@ -479,11 +479,11 @@ hermes -z "Run full pentest engagement against example.com.
 ✓ All services operational — ready for engagement
 
 === FORENSICS ===
-=== Results: 18 passed, 0 failed ===
+=== Results: 20 passed, 0 failed ===
 ✓ All runtimes operational — ready for investigation</pre></div>
 
   <p style="font-size:11px;color:var(--muted)">
-    One command, both canaries. Forensics checks 3 runtimes (Docker, SIFT VM, MemProcFS) across 18 tools.
+    One command, both canaries. Forensics checks 3 runtimes (Docker, SIFT VM, MemProcFS) across 20 checks (12 tools + 8 env).
     Pentest checks 14 services (Docker, VPN, LUKS, tools). Degraded tools are marked for triage-only;
     the agent handles recovery reasoning.
   </p>
@@ -526,7 +526,7 @@ hermes -z "Run the pentest canary and report pass/fail." --profile pentest</pre>
     <tr><td><code>/home/user/pentest/docker/</code></td><td>Docker Compose + per-container build contexts</td><td>Vault mount</td></tr>
     <tr><td><code>/home/user/vmware/SIFT/</code></td><td>SIFT Workstation VM files</td><td>None</td></tr>
     <tr><td><code>/home/user/hermes-forensics-lab/</code></td><td>Public repo — README, sample reports, docs</td><td>None</td></tr>
-    <tr><td><code>/home/user/hermes-lab-dashboard/</code></td><td>Public repo — boot flow, tray launcher, architecture diagram</td><td>None</td></tr>
+    <tr><td><code>/home/user/hermes-lab-management-dashboard/</code></td><td>Public repo — boot flow, tray launcher, architecture diagram</td><td>None</td></tr>
   </table>
 </div>
 
@@ -640,7 +640,7 @@ hermes -z "Run canary. Passive OSINT on example.com. Zero packets.
   &nbsp;·&nbsp;
   <a href="https://github.com/jayelbotvibe-web/hermes-pentest-lab">hermes-pentest-lab</a>
   &nbsp;·&nbsp;
-  <a href="https://github.com/jayelbotvibe-web/hermes-lab-dashboard">hermes-lab-dashboard</a>
+  <a href="https://github.com/jayelbotvibe-web/hermes-lab-management-dashboard">hermes-lab-management-dashboard</a>
   &nbsp;·&nbsp;
   <a href="https://github.com/NousResearch/hermes-agent">Hermes Agent</a>
   <br><br>

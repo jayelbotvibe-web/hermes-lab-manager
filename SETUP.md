@@ -75,17 +75,17 @@ echo "forensics_crypt /home/$USER/forensics.img /home/$USER/.forensics-keyfile l
 2. Import into VMware Workstation
 3. Configure **NAT networking (vmnet8)** — NOT bridged:
    - In VM settings: Network Adapter → NAT
-   - Power on VM, set static IP: `172.16.146.128`
+   - Power on VM, set static IP: `<SIFT-VM-IP>`
 4. Add port forward (optional, for SSH via localhost):
    ```bash
    # /etc/vmware/vmnet8/nat/nat.conf
    [incomingtcp]
-   2222 = 172.16.146.128:22
+   2222 = <SIFT-VM-IP>:22
    sudo vmware-networks --stop && sudo vmware-networks --start
    ```
 5. Copy SSH key:
    ```bash
-   ssh-copy-id sansforensics@172.16.146.128
+   ssh-copy-id sansforensics@<SIFT-VM-IP>
    ```
 
 ---
@@ -115,7 +115,7 @@ cp ~/hermes-forensics-lab/reports/templates/*.html /home/$USER/forensics/templat
 cp ~/hermes-forensics-lab/tools/tool-catalog.yaml /home/$USER/forensics/tools/
 ```
 
-Then update paths in scripts to use vault paths (e.g., template path → `/home/niel/forensics/templates/`).
+Then update paths in scripts to use vault paths (e.g., template path → `/home/user/forensics/templates/`).
 
 ---
 
@@ -198,7 +198,7 @@ Expected output:
 ✓ All services operational
 
 === FORENSICS ===
-=== Results: 18 passed, 0 failed ===
+=== Results: 20 passed, 0 failed ===
 ✓ All runtimes operational
 ```
 

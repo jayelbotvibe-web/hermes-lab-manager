@@ -140,7 +140,7 @@ Fix: always use background dispatch with `notify_on_complete=true`.
 | File | Why |
 |------|-----|
 | `~/.hermes/scripts/check-labs` | One command, both canaries |
-| `~/forensics/scripts/session-canary.sh` | 18 checks, 3 runtimes |
+| `~/forensics/scripts/session-canary.sh` | 20 checks (12 tools + 8 env), 3 runtimes |
 | `~/forensics/scripts/sift-exec.sh` | SSH footgun prevention |
 | `~/forensics/scripts/down.sh` | Cleanup |
 | `~/forensics/tools/tool-catalog.yaml` | Tool versions, pitfalls |
